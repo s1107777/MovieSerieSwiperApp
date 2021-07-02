@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="movie_image" type="id" />
+    <item name="movie_name" type="id" />
+    <item name="movie_genre" type="id" />
+    <item name="movie_id" type="id" />
+</resources>
