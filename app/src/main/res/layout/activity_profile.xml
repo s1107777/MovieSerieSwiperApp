@@ -27,7 +27,6 @@
         android:id="@+id/genreAction"
         android:layout_width="95dp"
         android:layout_height="30dp"
-        android:checked="true"
         android:text="Action"
         android:textColor="#EDEDED"
         android:buttonTint="#56a885"

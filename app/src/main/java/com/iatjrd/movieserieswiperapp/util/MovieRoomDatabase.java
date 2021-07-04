@@ -15,7 +15,7 @@ import com.iatjrd.movieserieswiperapp.model.Movie;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Movie.class}, version = 1, exportSchema = false)
+@Database(entities = {Movie.class}, version = 4, exportSchema = false)
 public abstract class MovieRoomDatabase extends RoomDatabase {
 
     public abstract MovieDao movieDao();
@@ -58,6 +58,7 @@ public abstract class MovieRoomDatabase extends RoomDatabase {
                             MovieRoomDatabase.class,
                             "movie_database")
                             .addCallback(sRoomDatabaseCallBack)
+                            .fallbackToDestructiveMigration()
                             .build();
 
                 }

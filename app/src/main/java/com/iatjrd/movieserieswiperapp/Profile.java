@@ -6,12 +6,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,11 +22,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.iatjrd.movieserieswiperapp.model.Movie;
+import com.iatjrd.movieserieswiperapp.model.MovieViewModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Profile extends AppCompatActivity {
@@ -31,7 +37,7 @@ public class Profile extends AppCompatActivity {
     Button logoutButton;
     TextView username;
     CheckBox genreAction, genreAdventure, genreComedy, genreCrime, genreFantasy, genreThriller;
-
+    public MovieViewModel movieViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +54,11 @@ public class Profile extends AppCompatActivity {
         genreFantasy = findViewById(R.id.genreFantasy);
         genreThriller = findViewById(R.id.genreThriller);
 
+        movieViewModel = new ViewModelProvider.AndroidViewModelFactory(Profile.this.getApplication())
+                .create(MovieViewModel.class);
+
         getUsername(username);
-        setGenre();
+        chooseGenre();
 
         logoutButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -60,25 +69,99 @@ public class Profile extends AppCompatActivity {
         });
     }
 
-    public void setGenre(){
-        if(genreAction.isChecked()){
+    public void chooseGenre(){
+        genreAction.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(genreAction.isChecked()){
+                    movieViewModel.getGenreAction().observe(Profile.this, new Observer<List<Movie>>() {
+                        @Override
+                        public void onChanged(List<Movie> movies) {
+                            for (Movie movie: movies){
+                                Log.d("genreAction", movie.getMoviename());
+                            }
+                        }
+                    });
+                }
+            }
+        });
+        genreAdventure.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(genreAdventure.isChecked()){
+                    movieViewModel.getGenreAdventure().observe(Profile.this, new Observer<List<Movie>>() {
+                        @Override
+                        public void onChanged(List<Movie> movies) {
+                            for (Movie movie: movies){
+                                Log.d("genreAdventure", movie.getMoviename());
+                            }
+                        }
+                    });
+                }
+            }
+        });
+        genreComedy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(genreComedy.isChecked()){
+                    movieViewModel.getGenreComedy().observe(Profile.this, new Observer<List<Movie>>() {
+                        @Override
+                        public void onChanged(List<Movie> movies) {
+                            for (Movie movie: movies){
+                                Log.d("genreComedy", movie.getMoviename());
+                            }
+                        }
+                    });
+                }
+            }
+        });
+        genreCrime.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(genreCrime.isChecked()){
+                    movieViewModel.getGenreCrime().observe(Profile.this, new Observer<List<Movie>>() {
+                        @Override
+                        public void onChanged(List<Movie> movies) {
+                            for (Movie movie: movies){
+                                Log.d("genreCrime", movie.getMoviename());
+                            }
+                        }
+                    });
+                }
+            }
+        });
+        genreFantasy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(genreFantasy.isChecked()){
+                    movieViewModel.getGenreFantasy().observe(Profile.this, new Observer<List<Movie>>() {
+                        @Override
+                        public void onChanged(List<Movie> movies) {
+                            for (Movie movie: movies){
+                                Log.d("genreFantasy", movie.getMoviename());
+                            }
+                        }
+                    });
+                }
+            }
+        });
+        genreThriller.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(genreThriller.isChecked()){
+                    movieViewModel.getGenreThriller().observe(Profile.this, new Observer<List<Movie>>() {
+                        @Override
+                        public void onChanged(List<Movie> movies) {
+                            for (Movie movie: movies){
+                                Log.d("genreThriller", movie.getMoviename());
+                            }
+                        }
+                    });
+                }
+            }
+        });
 
-        }
-        if(genreAdventure.isChecked()){
 
-        }
-        if(genreComedy.isChecked()){
-
-        }
-        if(genreCrime.isChecked()){
-
-        }
-        if(genreFantasy.isChecked()){
-
-        }
-        if(genreThriller.isChecked()){
-
-        }
     }
 
     public void getUsername(TextView username){
