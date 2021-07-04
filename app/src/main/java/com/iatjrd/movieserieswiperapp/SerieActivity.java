@@ -20,10 +20,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import com.iatjrd.movieserieswiperapp.adapter.SavedItemStackAdapter;
 import com.iatjrd.movieserieswiperapp.adapter.SerieStackAdapter;
 
 import com.iatjrd.movieserieswiperapp.data.SerieDao;
 
+import com.iatjrd.movieserieswiperapp.model.SavedItem;
+import com.iatjrd.movieserieswiperapp.model.SavedItemViewModel;
 import com.iatjrd.movieserieswiperapp.model.Serie;
 import com.iatjrd.movieserieswiperapp.model.SerieViewModel;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
@@ -45,8 +48,15 @@ public class SerieActivity extends AppCompatActivity {
     public SerieViewModel serieViewModel;
     private CardStackLayoutManager manager;
     private SerieStackAdapter adapter;
-    public SerieDao serieDao;
+    private SavedItemStackAdapter adapterSavedItem;
     public List<Serie> series = new ArrayList<>();
+    public List<SavedItem> savedItems = new ArrayList<>();
+    public String serieImage = "";
+    public String serieName = "test";
+    public String serieGenre = "test";
+    public String serieDescription = "test";
+    public String serieSeasons = "test";
+    public SavedItemViewModel savedItemViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +86,8 @@ public class SerieActivity extends AppCompatActivity {
                     //Log.d("saved list", moviesSwipedRight.toString());
                     //addedMoviesForSwipe.remove(Index);
                     //addItemToList(movieName, movieGenre);
+                    savedItems(serieName, serieGenre, serieDescription, serieSeasons);
+
                 }
                 if (direction == Direction.Top) {
                     Toast.makeText(SerieActivity.this, "Direction Top", Toast.LENGTH_SHORT).show();
@@ -114,13 +126,21 @@ public class SerieActivity extends AppCompatActivity {
             @Override
             public void onCardAppeared(View view, int position) {
                 TextView tv = view.findViewById(R.id.serie_name);
-                TextView genreMovie = view.findViewById(R.id.serie_genre);
+                TextView genre = view.findViewById(R.id.serie_genre);
+                TextView description = view.findViewById(R.id.serie_description);
+                TextView seasons = view.findViewById(R.id.serie_seasons);
                 //ImageView movieImageUrl = view.findViewById(R.id.movie_image);
                 //View movieNameView = view.findViewById(R.id.movie_name);
                 //movieName = String.valueOf(tv.getText());
                 //movieGenre = String.valueOf(genreMovie.getText());
                 //movieImage = String.valueOf(movieImageUrl.get);
 
+                /*serieName = String.valueOf(tv.getText());
+                serieGenre = String.valueOf(genre.getText());
+                serieDescription = String.valueOf(description.getText());
+                serieSeasons = String.valueOf(seasons.getText());*/
+
+                Log.d("SeriesAdded", serieName + serieGenre +  serieDescription + serieSeasons);
                 Log.d("MainActivity", "onCardAppeared: " + position + ", movie name: " + tv.getText());
             }
 
@@ -145,6 +165,8 @@ public class SerieActivity extends AppCompatActivity {
         manager.setOverlayInterpolator(new LinearInterpolator());
         cardStackView.setLayoutManager(manager);
         cardStackView.setItemAnimator(new DefaultItemAnimator());
+
+
     }
 
 
@@ -182,5 +204,10 @@ public class SerieActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
         return series;
+    }
+
+    public void savedItems(String serieName, String serieGenre, String serieDescription, String serieSeasons){
+        SavedItem savedItem = new SavedItem(serieName, serieGenre, serieDescription, serieSeasons);
+        SavedItemViewModel.insert(savedItem);
     }
 }

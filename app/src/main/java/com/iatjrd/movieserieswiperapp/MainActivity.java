@@ -24,6 +24,7 @@ import com.iatjrd.movieserieswiperapp.adapter.CardStackCallback;
 import com.iatjrd.movieserieswiperapp.data.MovieDao;
 import com.iatjrd.movieserieswiperapp.model.Movie;
 import com.iatjrd.movieserieswiperapp.model.MovieViewModel;
+import com.iatjrd.movieserieswiperapp.model.SerieViewModel;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.CardStackView;
