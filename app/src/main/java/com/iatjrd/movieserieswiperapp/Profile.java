@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -29,9 +30,8 @@ public class Profile extends AppCompatActivity {
 
     Button logoutButton;
     TextView username;
-    RadioButton rbtnFilm;
-    RadioButton rbtnSerie;
-    RadioGroup serieOfFilms;
+    CheckBox genreAction, genreAdventure, genreComedy, genreCrime, genreFantasy, genreThriller;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +40,16 @@ public class Profile extends AppCompatActivity {
 
         logoutButton = findViewById(R.id.logoutButton);
         username = findViewById(R.id.userName);
-        rbtnFilm = findViewById(R.id.radioButtonFilm);
-        rbtnSerie = findViewById(R.id.radioButtonSerie);
-        serieOfFilms = findViewById(R.id.radioGroup);
+
+        genreAction = findViewById(R.id.genreAction);
+        genreAdventure = findViewById(R.id.genreAdventure);
+        genreComedy = findViewById(R.id.genreComedy);
+        genreCrime = findViewById(R.id.genreCrime);
+        genreFantasy = findViewById(R.id.genreFantasy);
+        genreThriller = findViewById(R.id.genreThriller);
 
         getUsername(username);
-        serieOfFilms();
+        setGenre();
 
         logoutButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -54,28 +58,27 @@ public class Profile extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), Login.class));
             }
         });
-
-
-
     }
 
-    public void serieOfFilms(){
-        serieOfFilms.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (i){
-                    case R.id.radioButtonFilm:
-                        rbtnFilm.isChecked();
-                        // variabelen aanmaken en doorsturen naar de main?
-                        Log.d("checkRadio", "Jaaaaaaa");
-                        break;
-                    case R.id.radioButtonSerie:
-                        rbtnSerie.isChecked();
-                        Log.d("checkRadio", "Jaaaaaaa");
-                        break;
-                }
-            }
-        });
+    public void setGenre(){
+        if(genreAction.isChecked()){
+
+        }
+        if(genreAdventure.isChecked()){
+
+        }
+        if(genreComedy.isChecked()){
+
+        }
+        if(genreCrime.isChecked()){
+
+        }
+        if(genreFantasy.isChecked()){
+
+        }
+        if(genreThriller.isChecked()){
+
+        }
     }
 
     public void getUsername(TextView username){

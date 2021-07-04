@@ -18,13 +18,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         profileButton = findViewById(R.id.profileButton);
-        Bundle bundle = getIntent().getExtras();
-        String token = bundle.getString("token");
-        Log.d("ProfileToken", token);
 
         profileButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                Bundle bundle = getIntent().getExtras();
+                String token = bundle.getString("token");
+                Log.d("ProfileToken", token);
                 Intent intent = new Intent(MainActivity.this, Profile.class);
                 intent.putExtra("token", token);
                 startActivity(intent);

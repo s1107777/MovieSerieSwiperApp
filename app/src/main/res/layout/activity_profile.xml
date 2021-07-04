@@ -21,93 +21,93 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.046" />
+        app:layout_constraintVertical_bias="0.06999999" />
 
-    <RadioGroup
-        android:id="@+id/genreRadioGroup1"
-        android:layout_width="103dp"
-        android:layout_height="120dp"
-
-        android:checkedButton="@+id/genreRadioGroup"
+    <CheckBox
+        android:id="@+id/genreAction"
+        android:layout_width="95dp"
+        android:layout_height="30dp"
+        android:checked="true"
+        android:text="Action"
+        android:textColor="#EDEDED"
+        android:buttonTint="#56a885"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.373"
+        app:layout_constraintHorizontal_bias="0.357"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        app:layout_constraintVertical_bias="0.206">
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.064" />
 
-        <RadioButton
-            android:id="@+id/genre1"
-            android:layout_width="93dp"
-            android:layout_height="30dp"
-            android:checked="true"
-            android:text="genre1"
-            android:textColor="#EDEDED" />
 
-        <RadioButton
-            android:id="@+id/genre2"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="genre2"
-            android:textColor="#EDEDED" />
-
-        <RadioButton
-            android:id="@+id/genre3"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="genre3"
-            android:textColor="#EDEDED" />
-
-        <RadioButton
-            android:id="@+id/genre4"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="genre4"
-            android:textColor="#EDEDED" />
-
-    </RadioGroup>
-
-    <RadioGroup
-        android:id="@+id/genreRadioGroup2"
-        android:layout_width="103dp"
-        android:layout_height="120dp"
-
-        android:checkedButton="@+id/genreRadioGroup"
+    <CheckBox
+        android:id="@+id/genreComedy"
+        android:layout_width="95dp"
+        android:layout_height="30dp"
+        android:text="Comedy"
+        android:textColor="#EDEDED"
+        android:buttonTint="#56a885"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.707"
+        app:layout_constraintHorizontal_bias="0.357"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        app:layout_constraintVertical_bias="0.206">
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.151" />
 
-        <RadioButton
-            android:id="@+id/genre5"
-            android:layout_width="92dp"
-            android:layout_height="30dp"
-            android:text="genre5"
-            android:textColor="#EDEDED" />
+    <CheckBox
+        android:id="@+id/genreFantasy"
+        android:layout_width="95dp"
+        android:layout_height="30dp"
+        android:text="Fantasy"
+        android:textColor="#EDEDED"
+        android:buttonTint="#56a885"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.357"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.235" />
 
-        <RadioButton
-            android:id="@+id/genre6"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="genre6"
-            android:textColor="#EDEDED" />
+    <CheckBox
+        android:id="@+id/genreAdventure"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:text="Adventure"
+        android:textColor="#EDEDED"
+        android:buttonTint="#56a885"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.668"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.064" />
 
-        <RadioButton
-            android:id="@+id/genre7"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="genre7"
-            android:textColor="#EDEDED" />
+    <CheckBox
+        android:id="@+id/genreCrime"
+        android:layout_width="95dp"
+        android:layout_height="30dp"
+        android:text="Crime"
+        android:textColor="#EDEDED"
+        android:buttonTint="#56a885"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.658"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.151" />
 
-        <RadioButton
-            android:id="@+id/genre8"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:text="genre8"
-            android:textColor="#EDEDED" />
-    </RadioGroup>
+    <CheckBox
+        android:id="@+id/genreThriller"
+        android:layout_width="95dp"
+        android:layout_height="30dp"
+        android:text="Thriller"
+        android:textColor="#EDEDED"
+        android:buttonTint="#56a885"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.658"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintVertical_bias="0.235" />
 
     <Button
         android:id="@+id/changeButton"
@@ -121,8 +121,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/genreRadioGroup1"
-        app:layout_constraintVertical_bias="0.424" />
+        app:layout_constraintTop_toBottomOf="@+id/genreFantasy"
+        app:layout_constraintVertical_bias="0.349" />
 
     <Button
         android:id="@+id/logoutButton"
@@ -136,61 +136,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/changeButton"
-        app:layout_constraintVertical_bias="0.301" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="What do you want to see?"
-        android:textColor="#EDEDED"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userName"
-        app:layout_constraintVertical_bias="0.053" />
+        app:layout_constraintVertical_bias="0.615" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Which genre do you want?"
+        android:text="Which genre do you want to see?"
         android:textColor="#EDEDED"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        app:layout_constraintVertical_bias="0.07" />
-
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:layout_constraintVertical_bias="0.03">
-
-        <RadioButton
-            android:id="@+id/radioButtonFilm"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:buttonTint="#56a885"
-            android:checked="true"
-            android:text="Films"
-            android:textColor="#EDEDED" />
-
-        <RadioButton
-            android:id="@+id/radioButtonSerie"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:buttonTint="#56a885"
-            android:text="Series"
-            android:textColor="#EDEDED" />
-    </RadioGroup>
+        app:layout_constraintTop_toBottomOf="@+id/userName"
+        app:layout_constraintVertical_bias="0.114" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
