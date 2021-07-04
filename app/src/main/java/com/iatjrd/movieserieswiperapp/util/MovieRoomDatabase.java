@@ -10,17 +10,22 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.iatjrd.movieserieswiperapp.data.MovieDao;
+import com.iatjrd.movieserieswiperapp.data.SerieDao;
 import com.iatjrd.movieserieswiperapp.model.Movie;
+import com.iatjrd.movieserieswiperapp.model.Serie;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Movie.class}, version = 1, exportSchema = false)
+@Database(entities = {Movie.class, Serie.class}, version = 6, exportSchema = false)
 public abstract class MovieRoomDatabase extends RoomDatabase {
 
+    //Importing Dao
     public abstract MovieDao movieDao();
+    public abstract SerieDao serieDao();
+
     private static final int NUMBER_OF_THREADS = 4;
-    public String Movieurl = "https://movieserieswiperdb-qioab.ondigitalocean.app/api/auth/movies";
+
 
     private static volatile MovieRoomDatabase INSTANCE;
 
@@ -34,7 +39,10 @@ public abstract class MovieRoomDatabase extends RoomDatabase {
             super.onCreate(db);
             databaseWriteExecutor.execute(() -> {
                 MovieDao movieDao = INSTANCE.movieDao();
+                SerieDao serieDao = INSTANCE.serieDao();
+
                 movieDao.deleteAll();
+                serieDao.deleteAll();
 
                 /*Movie movie = new Movie("James Bond", "Action");
                 movieDao.insert(movie);
@@ -58,6 +66,7 @@ public abstract class MovieRoomDatabase extends RoomDatabase {
                             MovieRoomDatabase.class,
                             "movie_database")
                             .addCallback(sRoomDatabaseCallBack)
+                            .fallbackToDestructiveMigration()
                             .build();
 
                 }

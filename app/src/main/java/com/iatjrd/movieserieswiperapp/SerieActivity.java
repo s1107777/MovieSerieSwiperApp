@@ -1,11 +1,5 @@
 package com.iatjrd.movieserieswiperapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DiffUtil;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,17 +7,25 @@ import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.iatjrd.movieserieswiperapp.adapter.CardStackAdapter;
-import com.iatjrd.movieserieswiperapp.adapter.CardStackCallback;
-import com.iatjrd.movieserieswiperapp.data.MovieDao;
-import com.iatjrd.movieserieswiperapp.model.Movie;
-import com.iatjrd.movieserieswiperapp.model.MovieViewModel;
+
+import com.iatjrd.movieserieswiperapp.adapter.SerieStackAdapter;
+
+import com.iatjrd.movieserieswiperapp.data.SerieDao;
+
+import com.iatjrd.movieserieswiperapp.model.Serie;
+import com.iatjrd.movieserieswiperapp.model.SerieViewModel;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.CardStackView;
@@ -38,29 +40,28 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class SerieActivity extends AppCompatActivity {
 
-    public MovieViewModel movieViewModel;
+    public SerieViewModel serieViewModel;
     private CardStackLayoutManager manager;
-    private CardStackAdapter adapter;
-    public MovieDao movieDao;
-    public List<Movie> movies = new ArrayList<>();
-    public String Movieurl = "https://movieserieswiperdb-qioab.ondigitalocean.app/api/auth/movies";
+    private SerieStackAdapter adapter;
+    public SerieDao serieDao;
+    public List<Serie> series = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_serie);
 
-        CardStackView cardStackView = findViewById(R.id.card_stack_view);
+        CardStackView cardStackView = findViewById(R.id.serie_stack_view);
 
-        movieViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity.this.getApplication())
-                .create(MovieViewModel.class);
+        serieViewModel = new ViewModelProvider.AndroidViewModelFactory(SerieActivity.this.getApplication())
+                .create(SerieViewModel.class);
 
-        movieViewModel.getAllMovies().observe(this, new Observer<List<Movie>>() {
+        serieViewModel.getAllSeries().observe(this, new Observer<List<Serie>>() {
             @Override
-            public void onChanged(List<Movie> movies) {
-                adapter.setMovies(movies);
+            public void onChanged(List<Serie> series) {
+                adapter.setSeries(series);
                 //textView.setText(builder.toString());
 
             }
@@ -70,28 +71,27 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCardSwiped(Direction direction) {
                 if (direction == Direction.Right) {
-                    Toast.makeText(MainActivity.this, "Direction Right", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SerieActivity.this, "Direction Right", Toast.LENGTH_SHORT).show();
                     //moviesSwipedRight.add(addedMoviesForSwipe.toString());
                     //Log.d("saved list", moviesSwipedRight.toString());
                     //addedMoviesForSwipe.remove(Index);
                     //addItemToList(movieName, movieGenre);
                 }
                 if (direction == Direction.Top) {
-                    Toast.makeText(MainActivity.this, "Direction Top", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SerieActivity.this, "Direction Top", Toast.LENGTH_SHORT).show();
                 }
                 if (direction == Direction.Left) {
-                    Toast.makeText(MainActivity.this, "Direction Left", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SerieActivity.this, "Direction Left", Toast.LENGTH_SHORT).show();
                     //addedMoviesForSwipe.remove(Index);
                     //addedMoviesForSwipe.remove(Index);
                     //.d("deleted movies", addedMoviesForSwipe.toString());
                 }
                 if (direction == Direction.Bottom) {
-                    Toast.makeText(MainActivity.this, "Direction Bottom", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SerieActivity.this, "Direction Bottom", Toast.LENGTH_SHORT).show();
                 }
 
                 // Paginating
                 if (manager.getTopPosition() == adapter.getItemCount() - 5) {
-                    paginate();
                 }
             }
 
@@ -113,8 +113,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCardAppeared(View view, int position) {
-                TextView tv = view.findViewById(R.id.movie_name);
-                TextView genreMovie = view.findViewById(R.id.movie_genre);
+                TextView tv = view.findViewById(R.id.serie_name);
+                TextView genreMovie = view.findViewById(R.id.serie_genre);
                 //ImageView movieImageUrl = view.findViewById(R.id.movie_image);
                 //View movieNameView = view.findViewById(R.id.movie_name);
                 //movieName = String.valueOf(tv.getText());
@@ -126,12 +126,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCardDisappeared(View view, int position) {
-                TextView tv = view.findViewById(R.id.movie_name);
+                TextView tv = view.findViewById(R.id.serie_name);
                 Log.d("MainActivity", "onCardAppeared: " + position + ", movie name: " + tv.getText());
             }
         });
 
-        adapter = new CardStackAdapter(addList());
+        adapter = new SerieStackAdapter(addList());
         cardStackView.setAdapter(adapter);
         manager.setStackFrom(StackFrom.None);
         manager.setVisibleCount(3);
@@ -147,18 +147,10 @@ public class MainActivity extends AppCompatActivity {
         cardStackView.setItemAnimator(new DefaultItemAnimator());
     }
 
-    private void paginate() {
-        List<Movie> old = adapter.getMovies();
-        List<Movie> baru = new ArrayList<>(addList());
-        CardStackCallback callback = new CardStackCallback(old, baru);
-        DiffUtil.DiffResult hasil = DiffUtil.calculateDiff(callback);
-        adapter.setMovies(baru);
-        hasil.dispatchUpdatesTo(adapter);
-    }
 
-    private List<Movie> addList() {
-        String Movieurl = "https://movieserieswiperdb-qioab.ondigitalocean.app/api/auth/movies";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Movieurl,
+    private List<Serie> addList() {
+        String Serieurl = "https://movieserieswiperdb-qioab.ondigitalocean.app/api/auth/series";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Serieurl,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -167,12 +159,13 @@ public class MainActivity extends AppCompatActivity {
 
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject jsonObject = array.getJSONObject(i);
-                                Movie movie = new Movie(jsonObject.getString("movieName"),
+                                Serie serie = new Serie(jsonObject.getString("serieName"),
                                         jsonObject.getString("genre"),
                                         jsonObject.getString("description"),
-                                        jsonObject.getString("movieImageUrl"));
-                                MovieViewModel.insert(movie);
-                                Log.d("MovieAdded", "the movie method added has been called");
+                                        jsonObject.getString("seasons"),
+                                        jsonObject.getString("serieImageUrl"));
+                                SerieViewModel.insert(serie);
+                                Log.d("SerieAdded", "the movie method added has been called");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -188,6 +181,6 @@ public class MainActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-        return movies;
+        return series;
     }
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".SerieActivity">
 
     <ImageButton
         android:id="@+id/profileButton"
@@ -17,7 +17,7 @@
         app:layout_constraintVertical_bias="0.888" />
 
     <com.yuyakaido.android.cardstackview.CardStackView
-        android:id="@+id/card_stack_view"
+        android:id="@+id/serie_stack_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="8dp"
