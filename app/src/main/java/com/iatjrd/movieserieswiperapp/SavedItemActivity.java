@@ -17,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.iatjrd.movieserieswiperapp.adapter.SavedItemStackAdapter;
+import com.iatjrd.movieserieswiperapp.model.MovieViewModel;
 import com.iatjrd.movieserieswiperapp.model.SavedItem;
 import com.iatjrd.movieserieswiperapp.model.SavedItemViewModel;
 import com.iatjrd.movieserieswiperapp.model.Serie;
@@ -36,7 +37,7 @@ public class SavedItemActivity extends AppCompatActivity {
     public List<SavedItem> savedItem;
     public SavedItemStackAdapter adapter;
 
-    public SavedItemViewModel savedItemViewModel;
+    public MovieViewModel movieViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +58,10 @@ public class SavedItemActivity extends AppCompatActivity {
         sList.addItemDecoration(dividerItemDecoration);
         sList.setAdapter(adapter);
 
-        savedItemViewModel = new ViewModelProvider.AndroidViewModelFactory(SavedItemActivity.this.getApplication())
-                .create(SavedItemViewModel.class);
+        movieViewModel = new ViewModelProvider.AndroidViewModelFactory(SavedItemActivity.this.getApplication())
+                .create(MovieViewModel.class);
 
-        savedItemViewModel.getAllSavedItems().observe(this, new Observer<List<SavedItem>>() {
+        movieViewModel.getAllSavedItems().observe(this, new Observer<List<SavedItem>>() {
             @Override
             public void onChanged(List<SavedItem> savedItems) {
                 adapter.setSavedItemsList(savedItems);

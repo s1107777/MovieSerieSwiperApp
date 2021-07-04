@@ -25,6 +25,8 @@ import com.iatjrd.movieserieswiperapp.adapter.SerieStackAdapter;
 
 import com.iatjrd.movieserieswiperapp.data.SerieDao;
 
+import com.iatjrd.movieserieswiperapp.model.Movie;
+import com.iatjrd.movieserieswiperapp.model.MovieViewModel;
 import com.iatjrd.movieserieswiperapp.model.SavedItem;
 import com.iatjrd.movieserieswiperapp.model.SavedItemViewModel;
 import com.iatjrd.movieserieswiperapp.model.Serie;
@@ -46,16 +48,17 @@ import java.util.List;
 public class SerieActivity extends AppCompatActivity {
 
     public SerieViewModel serieViewModel;
+    public MovieViewModel movieViewModel;
     private CardStackLayoutManager manager;
     private SerieStackAdapter adapter;
     private SavedItemStackAdapter adapterSavedItem;
     public List<Serie> series = new ArrayList<>();
     public List<SavedItem> savedItems = new ArrayList<>();
     public String serieImage = "";
-    public String serieName = "test";
-    public String serieGenre = "test";
-    public String serieDescription = "test";
-    public String serieSeasons = "test";
+    public String serieName;
+    public String serieGenre;
+    public String serieDescription;
+    public String serieSeasons;
     public SavedItemViewModel savedItemViewModel;
 
     @Override
@@ -65,10 +68,10 @@ public class SerieActivity extends AppCompatActivity {
 
         CardStackView cardStackView = findViewById(R.id.serie_stack_view);
 
-        serieViewModel = new ViewModelProvider.AndroidViewModelFactory(SerieActivity.this.getApplication())
-                .create(SerieViewModel.class);
+        movieViewModel = new ViewModelProvider.AndroidViewModelFactory(SerieActivity.this.getApplication())
+                .create(MovieViewModel.class);
 
-        serieViewModel.getAllSeries().observe(this, new Observer<List<Serie>>() {
+        movieViewModel.getAllSeries().observe(this, new Observer<List<Serie>>() {
             @Override
             public void onChanged(List<Serie> series) {
                 adapter.setSeries(series);
@@ -135,10 +138,10 @@ public class SerieActivity extends AppCompatActivity {
                 //movieGenre = String.valueOf(genreMovie.getText());
                 //movieImage = String.valueOf(movieImageUrl.get);
 
-                /*serieName = String.valueOf(tv.getText());
+                serieName = String.valueOf(tv.getText());
                 serieGenre = String.valueOf(genre.getText());
                 serieDescription = String.valueOf(description.getText());
-                serieSeasons = String.valueOf(seasons.getText());*/
+                serieSeasons = String.valueOf(seasons.getText());
 
                 Log.d("SeriesAdded", serieName + serieGenre +  serieDescription + serieSeasons);
                 Log.d("MainActivity", "onCardAppeared: " + position + ", movie name: " + tv.getText());
@@ -186,7 +189,7 @@ public class SerieActivity extends AppCompatActivity {
                                         jsonObject.getString("description"),
                                         jsonObject.getString("seasons"),
                                         jsonObject.getString("serieImageUrl"));
-                                SerieViewModel.insert(serie);
+                                MovieViewModel.insertSerie(serie);
                                 Log.d("SerieAdded", "the movie method added has been called");
                             }
                         } catch (JSONException e) {
@@ -208,6 +211,6 @@ public class SerieActivity extends AppCompatActivity {
 
     public void savedItems(String serieName, String serieGenre, String serieDescription, String serieSeasons){
         SavedItem savedItem = new SavedItem(serieName, serieGenre, serieDescription, serieSeasons);
-        SavedItemViewModel.insert(savedItem);
+        MovieViewModel.insertSaveItem(savedItem);
     }
 }

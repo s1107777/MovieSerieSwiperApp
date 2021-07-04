@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.iatjrd.movieserieswiperapp.R;
 import com.iatjrd.movieserieswiperapp.model.SavedItem;
+import com.iatjrd.movieserieswiperapp.model.Serie;
 
 import java.util.List;
 
@@ -42,6 +43,7 @@ public class SavedItemStackAdapter extends RecyclerView.Adapter<SavedItemStackAd
     public int getItemCount(){
         return savedItemsList.size();
     }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView name, genre, description, seasons;
