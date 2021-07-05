@@ -24,6 +24,15 @@ public class MovieViewModel extends AndroidViewModel {
     public static SavedItemRepository savedItemRepository;
     public final LiveData<List<SavedItem>> allSavedItems;
 
+    public static UserRepository userRepository;
+    public final LiveData<List<User>> allUsers;
+
+    private LiveData<List<Movie>> genreAction;
+    private LiveData<List<Movie>> genreAdventure;
+    private LiveData<List<Movie>> genreComedy;
+    private LiveData<List<Movie>> genreCrime;
+    private LiveData<List<Movie>> genreFantasy;
+    private LiveData<List<Movie>> genreThriller;
 
     public MovieViewModel(@NonNull Application application) {
         super(application);

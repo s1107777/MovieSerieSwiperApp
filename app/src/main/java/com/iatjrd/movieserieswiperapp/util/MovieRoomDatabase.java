@@ -21,8 +21,8 @@ import com.iatjrd.movieserieswiperapp.model.Serie;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Movie.class, Serie.class, SavedItem.class}, version = 22, exportSchema = false)
-@Database(entities = {Movie.class, User.class}, version = 68, exportSchema = false)
+
+@Database(entities = {Movie.class, User.class, Serie.class, SavedItem.class}, version = 74, exportSchema = false)
 public abstract class MovieRoomDatabase extends RoomDatabase {
 
     //Importing Dao

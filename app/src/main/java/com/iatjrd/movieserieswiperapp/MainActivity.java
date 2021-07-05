@@ -72,13 +72,6 @@ public class MainActivity extends AppCompatActivity {
         movieViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity.this.getApplication())
                 .create(MovieViewModel.class);
         getCheckboxValues();
-        movieViewModel.getAllMovies().observe(this, new Observer<List<Movie>>() {
-            @Override
-            public void onChanged(List<Movie> movies) {
-                adapter.setMovies(movies);
-
-            }
-        });
 
         profileButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -210,8 +203,6 @@ public class MainActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
         return movies;
-
-
     }
 
     public void getCheckboxValues(){
@@ -223,33 +214,66 @@ public class MainActivity extends AppCompatActivity {
         boolean fanatasy = sharedPreferences.getBoolean("checkFantasy", false);
         boolean thriller = sharedPreferences.getBoolean("checkThriller", false);
 
-        movieViewModel.getAllMovies().observe(this, new Observer<List<Movie>>() {
-            @Override
-            public void onChanged(List<Movie> movies) {
-                if(action){
+        if(action){
+            movieViewModel.getGenreAction().observe(this, new Observer<List<Movie>>() {
+                @Override
+                public void onChanged(List<Movie> movies) {
                     for (Movie movie : movies) {
-
+                        adapter.setMovies(movies);
                     }
-                    Log.d("action", "ACTION");
                 }
-                if(adventure){
-                    Log.d("adventure", "adventure");
+            });
+        }
+        if(adventure){
+            movieViewModel.getGenreAdventure().observe(this, new Observer<List<Movie>>() {
+                @Override
+                public void onChanged(List<Movie> movies) {
+                    for (Movie movie : movies) {
+                        adapter.setMovies(movies);
+                    }
                 }
-                if(comedy){
-                    Log.d("comedy", "comedy");
+            });
+        }
+        if(comedy){
+            movieViewModel.getGenreComedy().observe(this, new Observer<List<Movie>>() {
+                @Override
+                public void onChanged(List<Movie> movies) {
+                    for (Movie movie : movies) {
+                        adapter.setMovies(movies);
+                    }
                 }
-                if(crime){
-                    Log.d("crime", "crime");
+            });
+        }
+        if(crime){
+            movieViewModel.getGenreCrime().observe(this, new Observer<List<Movie>>() {
+                @Override
+                public void onChanged(List<Movie> movies) {
+                    for (Movie movie : movies) {
+                        adapter.setMovies(movies);
+                    }
                 }
-                if(fanatasy){
-                    Log.d("fanatasy", "fanatasy");
+            });
+        }
+        if(fanatasy){
+            movieViewModel.getGenreFantasy().observe(this, new Observer<List<Movie>>() {
+                @Override
+                public void onChanged(List<Movie> movies) {
+                    for (Movie movie : movies) {
+                        adapter.setMovies(movies);
+                    }
                 }
-                if(thriller){
-                    Log.d("thriller", "thriller");
+            });
+        }
+        if(thriller){
+            movieViewModel.getGenreThriller().observe(this, new Observer<List<Movie>>() {
+                @Override
+                public void onChanged(List<Movie> movies) {
+                    for (Movie movie : movies) {
+                        adapter.setMovies(movies);
+                    }
                 }
-            }
-        });
-
+            });
+        }
 
 
     }

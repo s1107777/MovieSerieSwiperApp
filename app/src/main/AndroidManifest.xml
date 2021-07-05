@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieSerieSwiperApp">
-        <activity android:name=".SavedItemActivity">
+        <activity android:name=".SavedItemActivity"></activity>
         <activity android:name=".Profile"></activity>
         <activity android:name=".Register"></activity>
         <activity android:name=".Login">
@@ -23,8 +23,6 @@
         </activity>
         <activity android:name=".SerieActivity">
 
-        </activity>
-        <activity android:name=".MainActivity">
         </activity>
         <activity android:name=".MainActivity"></activity>
     </application>
