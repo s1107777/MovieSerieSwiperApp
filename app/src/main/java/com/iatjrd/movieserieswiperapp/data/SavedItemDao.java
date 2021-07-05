@@ -8,7 +8,6 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.iatjrd.movieserieswiperapp.model.SavedItem;
-import com.iatjrd.movieserieswiperapp.model.Serie;
 
 import java.util.List;
 

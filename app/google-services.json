@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "553307877267",
+    "project_id": "movieswiper-665ac",
+    "storage_bucket": "movieswiper-665ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:553307877267:android:e13d329e3b773eab6d4266",
+        "android_client_info": {
+          "package_name": "com.iatjrd.movieserieswiperapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "553307877267-7hqmi7374givrpicvelq4h0fvort8pg9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBf8ZAoaysd3_P4J8vdRxtZJkAVNhxsv1g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "553307877267-7hqmi7374givrpicvelq4h0fvort8pg9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

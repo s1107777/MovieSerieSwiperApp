@@ -1,22 +1,19 @@
 package com.iatjrd.movieserieswiperapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
-import android.content.Context;
+import android.app.Notification;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ImageButton;
-import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,10 +26,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.iatjrd.movieserieswiperapp.adapter.CardStackAdapter;
 import com.iatjrd.movieserieswiperapp.adapter.CardStackCallback;
+import com.iatjrd.movieserieswiperapp.adapter.SavedItemStackAdapter;
 import com.iatjrd.movieserieswiperapp.data.MovieDao;
 import com.iatjrd.movieserieswiperapp.model.Movie;
 import com.iatjrd.movieserieswiperapp.model.MovieViewModel;
-import com.iatjrd.movieserieswiperapp.model.SerieViewModel;
+import com.iatjrd.movieserieswiperapp.model.SavedItem;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.CardStackView;
@@ -44,21 +42,23 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageButton profileButton;
+    ImageButton profileButton, savedItemButton;
     public MovieViewModel movieViewModel;
     private CardStackLayoutManager manager;
     private CardStackAdapter adapter;
+    private SavedItemStackAdapter adapterSavedItem;
     public MovieDao movieDao;
     public List<Movie> movies = new ArrayList<>();
+    public List<SavedItem> savedItem = new ArrayList<>();
     public String Movieurl = "https://movieserieswiperdb-qioab.ondigitalocean.app/api/auth/movies";
+    public String movieName;
+    public String movieGenre;
+    public String movieDescription;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         CardStackView cardStackView = findViewById(R.id.card_stack_view);
 
         profileButton = findViewById(R.id.profileButton);
+        savedItemButton = findViewById(R.id.saveditemsButton);
 
         movieViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity.this.getApplication())
                 .create(MovieViewModel.class);
@@ -80,27 +81,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        savedItemButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), SavedItemActivity.class));
+            }
+        });
+
         manager = new CardStackLayoutManager(this, new CardStackListener() {
             @Override
             public void onCardSwiped(Direction direction) {
                 if (direction == Direction.Right) {
-                    Toast.makeText(MainActivity.this, "Direction Right", Toast.LENGTH_SHORT).show();
-                    //moviesSwipedRight.add(addedMoviesForSwipe.toString());
-                    //Log.d("saved list", moviesSwipedRight.toString());
-                    //addedMoviesForSwipe.remove(Index);
-                    //addItemToList(movieName, movieGenre);
+                    Log.d("enteredMovie", movieName + movieGenre + movieDescription);
+                    saveMovie(movieName, movieGenre, movieDescription);
+
                 }
                 if (direction == Direction.Top) {
-                    Toast.makeText(MainActivity.this, "Direction Top", Toast.LENGTH_SHORT).show();
+
                 }
                 if (direction == Direction.Left) {
-                    Toast.makeText(MainActivity.this, "Direction Left", Toast.LENGTH_SHORT).show();
-                    //addedMoviesForSwipe.remove(Index);
-                    //addedMoviesForSwipe.remove(Index);
-                    //.d("deleted movies", addedMoviesForSwipe.toString());
+
                 }
                 if (direction == Direction.Bottom) {
-                    Toast.makeText(MainActivity.this, "Direction Bottom", Toast.LENGTH_SHORT).show();
                 }
 
                 // Paginating
@@ -128,12 +130,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCardAppeared(View view, int position) {
                 TextView tv = view.findViewById(R.id.movie_name);
-                TextView genreMovie = view.findViewById(R.id.movie_genre);
+                TextView genre = view.findViewById(R.id.movie_genre);
+                TextView description = view.findViewById(R.id.movie_description);
                 //ImageView movieImageUrl = view.findViewById(R.id.movie_image);
                 //View movieNameView = view.findViewById(R.id.movie_name);
                 //movieName = String.valueOf(tv.getText());
                 //movieGenre = String.valueOf(genreMovie.getText());
                 //movieImage = String.valueOf(movieImageUrl.get);
+
+                movieName = String.valueOf(tv.getText());
+                movieGenre = String.valueOf(genre.getText());
+                movieDescription = String.valueOf(description.getText());
 
                 Log.d("MainActivity", "onCardAppeared: " + position + ", movie name: " + tv.getText());
             }
@@ -168,6 +175,12 @@ public class MainActivity extends AppCompatActivity {
         DiffUtil.DiffResult hasil = DiffUtil.calculateDiff(callback);
         adapter.setMovies(baru);
         hasil.dispatchUpdatesTo(adapter);
+    }
+
+    public void saveMovie(String movieName, String movieGenre, String movieDescription){
+        SavedItem savedItem = new SavedItem(movieName, movieGenre, movieDescription);
+        MovieViewModel.insertSaveItem(savedItem);
+        Log.d("saveditem", savedItem.toString());
     }
 
     private List<Movie> addList() {
@@ -277,4 +290,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 }

@@ -1,6 +1,5 @@
 package com.iatjrd.movieserieswiperapp.adapter;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.iatjrd.movieserieswiperapp.R;
 import com.iatjrd.movieserieswiperapp.model.SavedItem;
-import com.iatjrd.movieserieswiperapp.model.Serie;
 
 import java.util.List;
 
@@ -36,7 +34,6 @@ public class SavedItemStackAdapter extends RecyclerView.Adapter<SavedItemStackAd
         holder.name.setText(savedItem.getName());
         holder.genre.setText(savedItem.getGenre());
         holder.description.setText(savedItem.getDescription());
-        holder.seasons.setText(savedItem.getSeasons());
     }
 
     @Override
@@ -46,7 +43,7 @@ public class SavedItemStackAdapter extends RecyclerView.Adapter<SavedItemStackAd
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public TextView name, genre, description, seasons;
+        public TextView name, genre, description;
 
         public ViewHolder(View itemView){
             super(itemView);
@@ -54,7 +51,6 @@ public class SavedItemStackAdapter extends RecyclerView.Adapter<SavedItemStackAd
             name = itemView.findViewById(R.id.saved_name);
             genre = itemView.findViewById(R.id.saved_genre);
             description = itemView.findViewById(R.id.saved_description);
-            seasons = itemView.findViewById(R.id.saved_seasons);
         }
     }
 

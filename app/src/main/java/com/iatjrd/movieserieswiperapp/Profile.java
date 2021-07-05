@@ -58,6 +58,7 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+
         logoutButton = findViewById(R.id.logoutButton);
         changeButton = findViewById(R.id.changeButton);
         username = findViewById(R.id.userName);
@@ -68,9 +69,6 @@ public class Profile extends AppCompatActivity {
         genreCrime = findViewById(R.id.genreCrime);
         genreFantasy = findViewById(R.id.genreFantasy);
         genreThriller = findViewById(R.id.genreThriller);
-        radioButtonMovies = findViewById(R.id.radioButtonMovies);
-        radioButtonSeries = findViewById(R.id.radioButtonSeries);
-        radioGroup = findViewById(R.id.radiogroup);
 
 
         movieViewModel = new ViewModelProvider.AndroidViewModelFactory(Profile.this.getApplication())
@@ -78,7 +76,7 @@ public class Profile extends AppCompatActivity {
 
         getUsername(username);
 //        chooseGenre();
-        movieOrSerie();
+
 
         changeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -219,21 +217,6 @@ public class Profile extends AppCompatActivity {
 //        });
 //    }
 
-    public void movieOrSerie(){
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                if(i == R.id.radioButtonMovies){
-                    Log.d("RadioButtonMovie", "MOVVVIEEEE");
-                }
-                if(i == R.id.radioButtonSeries){
-                    Log.d("radioButtonSeries", "SSERRIEEEE");
-                }
-            }
-        });
-
-
-    }
 
     public void getUsername(TextView username){
         movieViewModel.getAllUsers().observe(Profile.this, new Observer<List<User>>() {

@@ -30,6 +30,7 @@
         android:layout_height="30dp"
         android:buttonTint="#56a885"
         android:text="Action"
+        android:checked="true"
         android:textColor="#EDEDED"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -44,6 +45,7 @@
         android:layout_height="30dp"
         android:buttonTint="#56a885"
         android:text="Comedy"
+        android:checked="true"
         android:textColor="#EDEDED"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,6 +60,7 @@
         android:layout_height="30dp"
         android:buttonTint="#56a885"
         android:text="Fantasy"
+        android:checked="true"
         android:textColor="#EDEDED"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,6 +74,7 @@
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:buttonTint="#56a885"
+        android:checked="true"
         android:text="Adventure"
         android:textColor="#EDEDED"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -85,6 +89,7 @@
         android:layout_width="95dp"
         android:layout_height="30dp"
         android:buttonTint="#56a885"
+        android:checked="true"
         android:text="Crime"
         android:textColor="#EDEDED"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -100,6 +105,7 @@
         android:layout_height="30dp"
         android:buttonTint="#56a885"
         android:text="Thriller"
+        android:checked="true"
         android:textColor="#EDEDED"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -150,44 +156,5 @@
         app:layout_constraintTop_toBottomOf="@+id/userName"
         app:layout_constraintVertical_bias="0.263" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Series or movies?"
-        android:textColor="#EDEDED"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userName"
-        app:layout_constraintVertical_bias="0.078" />
-
-    <RadioGroup
-        android:id="@+id/radiogroup"
-        android:layout_width="140dp"
-        android:layout_height="64dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.61"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userName"
-        app:layout_constraintVertical_bias="0.120000005">
-
-        <RadioButton
-            android:id="@+id/radioButtonMovies"
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:buttonTint="#56a885"
-            android:text="Movies"
-            android:textColor="#EDEDED" />
-
-        <RadioButton
-            android:id="@+id/radioButtonSeries"
-            android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:buttonTint="#56a885"
-            android:text="Series"
-            android:textColor="#EDEDED" />
-    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

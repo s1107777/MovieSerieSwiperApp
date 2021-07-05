@@ -12,23 +12,20 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.iatjrd.movieserieswiperapp.data.MovieDao;
 import com.iatjrd.movieserieswiperapp.data.UserDao;
 import com.iatjrd.movieserieswiperapp.data.SavedItemDao;
-import com.iatjrd.movieserieswiperapp.data.SerieDao;
 import com.iatjrd.movieserieswiperapp.model.Movie;
 import com.iatjrd.movieserieswiperapp.model.User;
 import com.iatjrd.movieserieswiperapp.model.SavedItem;
-import com.iatjrd.movieserieswiperapp.model.Serie;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-@Database(entities = {Movie.class, User.class, Serie.class, SavedItem.class}, version = 74, exportSchema = false)
+@Database(entities = {Movie.class, User.class, SavedItem.class}, version = 92, exportSchema = false)
 public abstract class MovieRoomDatabase extends RoomDatabase {
 
     //Importing Dao
     public abstract MovieDao movieDao();
     public abstract UserDao userDao();
-    public abstract SerieDao serieDao();
     public abstract SavedItemDao savedItemDao();
 
     private static final int NUMBER_OF_THREADS = 4;
@@ -46,11 +43,9 @@ public abstract class MovieRoomDatabase extends RoomDatabase {
             super.onCreate(db);
             databaseWriteExecutor.execute(() -> {
                 MovieDao movieDao = INSTANCE.movieDao();
-                SerieDao serieDao = INSTANCE.serieDao();
                 SavedItemDao savedItemDao = INSTANCE.savedItemDao();
 
                 movieDao.deleteAll();
-                serieDao.deleteAll();
                 savedItemDao.deleteAll();
 
                 UserDao userDao = INSTANCE.userDao();
