@@ -34,6 +34,13 @@ public class MovieViewModel extends AndroidViewModel {
     private LiveData<List<Movie>> genreFantasy;
     private LiveData<List<Movie>> genreThriller;
 
+    private LiveData<List<Serie>> genreActionS;
+    private LiveData<List<Serie>> genreAdventureS;
+    private LiveData<List<Serie>> genreComedyS;
+    private LiveData<List<Serie>> genreCrimeS;
+    private LiveData<List<Serie>> genreFantasyS;
+    private LiveData<List<Serie>> genreThrillerS;
+
     public MovieViewModel(@NonNull Application application) {
         super(application);
         repository = new MovieRepository(application);
@@ -53,6 +60,13 @@ public class MovieViewModel extends AndroidViewModel {
         genreCrime = repository.getGenreCrime();
         genreFantasy = repository.getGenreFantasy();
         genreThriller = repository.getGenreThriller();
+
+        genreActionS = serieRepository.getGenreActionSerie();
+        genreAdventureS = serieRepository.getGenreAdventureSerie();
+        genreComedyS = serieRepository.getGenreComedySerie();
+        genreCrimeS = serieRepository.getGenreCrimeSerie();
+        genreFantasyS = serieRepository.getGenreFantasySerie();
+        genreThrillerS = serieRepository.getGenreThrillerSerie();
     }
 
 
@@ -74,5 +88,12 @@ public class MovieViewModel extends AndroidViewModel {
     public LiveData<List<Movie>> getGenreCrime(){ return genreCrime; }
     public LiveData<List<Movie>> getGenreFantasy(){ return genreFantasy; }
     public LiveData<List<Movie>> getGenreThriller(){ return genreThriller; }
+
+    public LiveData<List<Serie>> getGenreActionSerie(){ return genreActionS; }
+    public LiveData<List<Serie>> getGenreAdventureSerie(){ return genreAdventureS; }
+    public LiveData<List<Serie>> getGenreComedySerie(){ return genreComedyS; }
+    public LiveData<List<Serie>> getGenreCrimeSerie(){ return genreCrimeS; }
+    public LiveData<List<Serie>> getGenreFantasySerie(){ return genreFantasyS; }
+    public LiveData<List<Serie>> getGenreThrillerSerie(){ return genreThrillerS; }
 
 }

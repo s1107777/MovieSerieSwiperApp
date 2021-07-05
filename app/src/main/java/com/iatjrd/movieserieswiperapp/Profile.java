@@ -47,10 +47,6 @@ public class Profile extends AppCompatActivity {
     RadioButton radioButtonMovies, radioButtonSeries;
     RadioGroup radioGroup;
 
-//    Boolean actionIsValid, adventureIsValid, comedyIsValid, crimeIsValid, fantasyIsValid, thrillerIsValid;
-    Boolean comedyIsValid;
-    ArrayList<Boolean> isValid = new ArrayList<>();
-
     public MovieViewModel movieViewModel;
 
     @Override
@@ -77,17 +73,11 @@ public class Profile extends AppCompatActivity {
                 .create(MovieViewModel.class);
 
         getUsername(username);
-//        chooseGenre();
-        movieOrSerie();
+//        movieOrSerie();
 
         changeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-//                Log.d("booleanIsValid", String.valueOf(isValid));
-//                Intent intent = new Intent(Profile.this, MainActivity.class);
-//                intent.putExtra("isValid", isValid);
-//                startActivity(intent);
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         });
@@ -99,140 +89,6 @@ public class Profile extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), Login.class));
             }
         });
-    }
-
-//    public void chooseGenre(){
-//        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-////        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        genreAction.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-////                if(isChecked){
-////                    editor.putBoolean("checkAction", true);
-////                    editor.apply();
-////                }else{
-////                    editor.putBoolean("checkAction", false);
-////                    editor.apply();
-////                }
-//            }
-//        });
-//        genreAdventure.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if(genreAdventure.isChecked()){
-//                    movieViewModel.getGenreAdventure().observe(Profile.this, new Observer<List<Movie>>() {
-//                        @Override
-//                        public void onChanged(List<Movie> movies) {
-//                            for (Movie movie: movies){
-////                                adventureIsValid = true;
-////                                isValid.add(adventureIsValid);
-//                                Log.d("genreAdventure", movie.getMoviename());
-//                            }
-//                        }
-//                    });
-//                }else{
-////                    adventureIsValid = false;
-////                    isValid.add(adventureIsValid);
-//                }
-//            }
-//        });
-//        genreComedy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if(genreComedy.isChecked()){
-//                    movieViewModel.getGenreComedy().observe(Profile.this, new Observer<List<Movie>>() {
-//                        @Override
-//                        public void onChanged(List<Movie> movies) {
-//                            for (Movie movie: movies){
-//                                comedyIsValid = true;
-//                                isValid.add(comedyIsValid);
-//                                Log.d("genreComedy", movie.getMoviename());
-//                            }
-//                        }
-//                    });
-//                }else{
-//                    comedyIsValid = false;
-//                    isValid.add(false);
-//                }
-//            }
-//        });
-//        genreCrime.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if(genreCrime.isChecked()){
-//                    movieViewModel.getGenreCrime().observe(Profile.this, new Observer<List<Movie>>() {
-//                        @Override
-//                        public void onChanged(List<Movie> movies) {
-//                            for (Movie movie: movies){
-////                                crimeIsValid = true;
-////                                isValid.add(crimeIsValid);
-//                                Log.d("genreCrime", movie.getMoviename());
-//                            }
-//                        }
-//                    });
-//                }else{
-////                    crimeIsValid = false;
-////                    isValid.add(crimeIsValid);
-//                }
-//            }
-//        });
-//        genreFantasy.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if(genreFantasy.isChecked()){
-//
-//                    movieViewModel.getGenreFantasy().observe(Profile.this, new Observer<List<Movie>>() {
-//                        @Override
-//                        public void onChanged(List<Movie> movies) {
-//                            for (Movie movie: movies){
-////                                fantasyIsValid = true;
-////                                isValid.add(fantasyIsValid);
-//                                Log.d("genreFantasy", movie.getMoviename());
-//                            }
-//                        }
-//                    });
-//                }else{
-////                    fantasyIsValid = false;
-////                    isValid.add(fantasyIsValid);
-//                }
-//            }
-//        });
-//        genreThriller.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-//                if(genreThriller.isChecked()){
-//                    movieViewModel.getGenreThriller().observe(Profile.this, new Observer<List<Movie>>() {
-//                        @Override
-//                        public void onChanged(List<Movie> movies) {
-//                            for (Movie movie: movies){
-////                                thrillerIsValid = true;
-////                                isValid.add(thrillerIsValid);
-//                                Log.d("genreThriller", movie.getMoviename());
-//                            }
-//                        }
-//                    });
-//                }else{
-////                    thrillerIsValid = false;
-////                    isValid.add(thrillerIsValid);
-//                }
-//            }
-//        });
-//    }
-
-    public void movieOrSerie(){
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                if(i == R.id.radioButtonMovies){
-                    Log.d("RadioButtonMovie", "MOVVVIEEEE");
-                }
-                if(i == R.id.radioButtonSeries){
-                    Log.d("radioButtonSeries", "SSERRIEEEE");
-                }
-            }
-        });
-
-
     }
 
     public void getUsername(TextView username){
@@ -251,9 +107,6 @@ public class Profile extends AppCompatActivity {
                 }
             }
         });
-
-
-
     }
 
     public void logout(){
@@ -298,6 +151,8 @@ public class Profile extends AppCompatActivity {
         save(genreCrime.isChecked());
         save(genreFantasy.isChecked());
         save(genreThriller.isChecked());
+        save(radioButtonSeries.isChecked());
+        save(radioButtonMovies.isChecked());
     }
     @Override
     public void onResume(){
@@ -308,6 +163,8 @@ public class Profile extends AppCompatActivity {
         genreCrime.setChecked(loadCrime());
         genreFantasy.setChecked(loadFantasy());
         genreThriller.setChecked(loadThriller());
+        radioButtonSeries.setChecked(loadSerie());
+        radioButtonMovies.setChecked(loadMovie());
     }
 
     private void save(final boolean isChecked){
@@ -319,6 +176,12 @@ public class Profile extends AppCompatActivity {
         editor.putBoolean("checkCrime", genreCrime.isChecked()).apply();
         editor.putBoolean("checkFantasy", genreFantasy.isChecked()).apply();
         editor.putBoolean("checkThriller", genreThriller.isChecked()).apply();
+
+
+        SharedPreferences preferences = getSharedPreferences("radio", MODE_PRIVATE);
+        SharedPreferences.Editor editorRadio = preferences.edit();
+        editorRadio.putBoolean("serie", radioButtonSeries.isChecked()).apply();
+        editorRadio.putBoolean("film", radioButtonMovies.isChecked()).apply();
         editor.commit();
     }
     private boolean loadAction(){
@@ -344,5 +207,13 @@ public class Profile extends AppCompatActivity {
     private boolean loadThriller(){
         SharedPreferences sharedPreferences = getSharedPreferences("check",MODE_PRIVATE);
         return sharedPreferences.getBoolean("checkThriller", false);
+    }
+    private boolean loadSerie(){
+        SharedPreferences sharedPreferences = getSharedPreferences("radio",MODE_PRIVATE);
+        return sharedPreferences.getBoolean("serie", false);
+    }
+    private boolean loadMovie(){
+        SharedPreferences sharedPreferences = getSharedPreferences("radio",MODE_PRIVATE);
+        return sharedPreferences.getBoolean("movie", false);
     }
 }

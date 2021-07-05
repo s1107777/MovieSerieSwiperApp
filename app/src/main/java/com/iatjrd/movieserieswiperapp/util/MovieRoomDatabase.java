@@ -22,7 +22,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-@Database(entities = {Movie.class, User.class, Serie.class, SavedItem.class}, version = 74, exportSchema = false)
+@Database(entities = {Movie.class, User.class, Serie.class, SavedItem.class}, version = 75, exportSchema = false)
 public abstract class MovieRoomDatabase extends RoomDatabase {
 
     //Importing Dao

@@ -29,9 +29,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.iatjrd.movieserieswiperapp.adapter.CardStackAdapter;
 import com.iatjrd.movieserieswiperapp.adapter.CardStackCallback;
+import com.iatjrd.movieserieswiperapp.adapter.SerieStackAdapter;
 import com.iatjrd.movieserieswiperapp.data.MovieDao;
 import com.iatjrd.movieserieswiperapp.model.Movie;
 import com.iatjrd.movieserieswiperapp.model.MovieViewModel;
+import com.iatjrd.movieserieswiperapp.model.Serie;
 import com.iatjrd.movieserieswiperapp.model.SerieViewModel;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     public MovieViewModel movieViewModel;
     private CardStackLayoutManager manager;
     private CardStackAdapter adapter;
+    private SerieStackAdapter serieAdapter;
     public MovieDao movieDao;
     public List<Movie> movies = new ArrayList<>();
     public String Movieurl = "https://movieserieswiperdb-qioab.ondigitalocean.app/api/auth/movies";
@@ -214,7 +217,11 @@ public class MainActivity extends AppCompatActivity {
         boolean fanatasy = sharedPreferences.getBoolean("checkFantasy", false);
         boolean thriller = sharedPreferences.getBoolean("checkThriller", false);
 
-        if(action){
+        SharedPreferences preferences = getSharedPreferences("radio",MODE_PRIVATE);
+        boolean serie = preferences.getBoolean("serie", false);
+        boolean movie = preferences.getBoolean("movie", false);
+
+        if(action && movie){
             movieViewModel.getGenreAction().observe(this, new Observer<List<Movie>>() {
                 @Override
                 public void onChanged(List<Movie> movies) {
@@ -223,8 +230,17 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
+        }else if(action && serie){
+            movieViewModel.getGenreActionSerie().observe(this, new Observer<List<Serie>>() {
+                @Override
+                public void onChanged(List<Serie> series) {
+                    for(Serie serie : series){
+                        serieAdapter.setSeries(series);
+                    }
+                }
+            });
         }
-        if(adventure){
+        if(adventure && movie){
             movieViewModel.getGenreAdventure().observe(this, new Observer<List<Movie>>() {
                 @Override
                 public void onChanged(List<Movie> movies) {
@@ -234,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-        if(comedy){
+        if(comedy && movie){
             movieViewModel.getGenreComedy().observe(this, new Observer<List<Movie>>() {
                 @Override
                 public void onChanged(List<Movie> movies) {
@@ -244,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-        if(crime){
+        if(crime && movie){
             movieViewModel.getGenreCrime().observe(this, new Observer<List<Movie>>() {
                 @Override
                 public void onChanged(List<Movie> movies) {
@@ -254,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-        if(fanatasy){
+        if(fanatasy && movie){
             movieViewModel.getGenreFantasy().observe(this, new Observer<List<Movie>>() {
                 @Override
                 public void onChanged(List<Movie> movies) {
@@ -264,7 +280,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-        if(thriller){
+        if(thriller && movie){
             movieViewModel.getGenreThriller().observe(this, new Observer<List<Movie>>() {
                 @Override
                 public void onChanged(List<Movie> movies) {

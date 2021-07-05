@@ -19,6 +19,24 @@ public interface SerieDao {
     @Query("SELECT * FROM serie_table")
     LiveData<List<Serie>> getAllSeries();
 
+    @Query("SELECT * FROM serie_table WHERE seriegenre = 'Action'")
+    LiveData<List<Serie>> getGenreActionSerie();
+
+    @Query("SELECT * FROM serie_table WHERE seriegenre = 'Adventure'")
+    LiveData<List<Serie>> getGenreAdventureSerie();
+
+    @Query("SELECT * FROM serie_table WHERE seriegenre = 'Comedy'")
+    LiveData<List<Serie>> getGenreComedySerie();
+
+    @Query("SELECT * FROM serie_table WHERE seriegenre = 'Crime'")
+    LiveData<List<Serie>> getGenreCrimeSerie();
+
+    @Query("SELECT * FROM serie_table WHERE seriegenre = 'Fantasy'")
+    LiveData<List<Serie>> getGenreFantasySerie();
+
+    @Query("SELECT * FROM serie_table WHERE seriegenre = 'Thriller'")
+    LiveData<List<Serie>> getGenreThrillerSerie();
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Serie serie);
 
