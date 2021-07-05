@@ -1,6 +1,7 @@
 package com.iatjrd.movieserieswiperapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.android.volley.Response;
+import com.iatjrd.movieserieswiperapp.model.MovieViewModel;
+import com.iatjrd.movieserieswiperapp.model.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,6 +53,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 checkUsername();
             }
+
         });
 
         lRegisterBtn.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +86,7 @@ public class Login extends AppCompatActivity {
 
         if(isValid){
             login(email, password);
-//            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
     }
 
@@ -97,13 +101,20 @@ public class Login extends AppCompatActivity {
                         Log.d("checkResponse", response);
                         String responseString = response;
                         JSONObject json = null;
+                        JSONObject jsonUser;
                         try {
                             json = new JSONObject(responseString);
-                            String token = json.getString("access_token");    //result is key for which you need to retrieve data
-                            Intent intent = new Intent(Login.this, MainActivity.class);
-                            intent.putExtra("token", token);
-                            startActivity(intent);
-                            Log.d("accessToken", token);
+                            String users = json.getString("user");
+                            jsonUser = new JSONObject(users);
+                            String userId = jsonUser.getString("id");
+                            Log.d("userId", userId);
+                            String token = json.getString("access_token");
+                            Log.d("userToken", token);
+                            String name = jsonUser.getString("name");
+                            Log.d("userName", name);
+                            User user = new User(userId, name, token);
+                            MovieViewModel.insertUser(user);
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -113,7 +124,7 @@ public class Login extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("registerError", error.toString());
+                        Log.d("loginError", error.toString());
                         Toast.makeText(Login.this, "Login Error! " + error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 })

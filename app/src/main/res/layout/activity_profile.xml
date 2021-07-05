@@ -23,90 +23,90 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.06999999" />
 
+
     <CheckBox
         android:id="@+id/genreAction"
         android:layout_width="95dp"
         android:layout_height="30dp"
+        android:buttonTint="#56a885"
         android:text="Action"
         android:textColor="#EDEDED"
-        android:buttonTint="#56a885"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.357"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.064" />
-
+        app:layout_constraintTop_toBottomOf="@+id/userName"
+        app:layout_constraintVertical_bias="0.322" />
 
     <CheckBox
         android:id="@+id/genreComedy"
         android:layout_width="95dp"
         android:layout_height="30dp"
+        android:buttonTint="#56a885"
         android:text="Comedy"
         android:textColor="#EDEDED"
-        android:buttonTint="#56a885"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.357"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.151" />
+        app:layout_constraintTop_toBottomOf="@+id/userName"
+        app:layout_constraintVertical_bias="0.396" />
 
     <CheckBox
         android:id="@+id/genreFantasy"
         android:layout_width="95dp"
         android:layout_height="30dp"
+        android:buttonTint="#56a885"
         android:text="Fantasy"
         android:textColor="#EDEDED"
-        android:buttonTint="#56a885"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.357"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.235" />
+        app:layout_constraintTop_toBottomOf="@+id/userName"
+        app:layout_constraintVertical_bias="0.468" />
 
     <CheckBox
         android:id="@+id/genreAdventure"
         android:layout_width="100dp"
         android:layout_height="30dp"
+        android:buttonTint="#56a885"
         android:text="Adventure"
         android:textColor="#EDEDED"
-        android:buttonTint="#56a885"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.668"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.064" />
+        app:layout_constraintTop_toBottomOf="@+id/userName"
+        app:layout_constraintVertical_bias="0.322" />
 
     <CheckBox
         android:id="@+id/genreCrime"
         android:layout_width="95dp"
         android:layout_height="30dp"
+        android:buttonTint="#56a885"
         android:text="Crime"
         android:textColor="#EDEDED"
-        android:buttonTint="#56a885"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.658"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.151" />
+        app:layout_constraintTop_toBottomOf="@+id/userName"
+        app:layout_constraintVertical_bias="0.396" />
 
     <CheckBox
         android:id="@+id/genreThriller"
         android:layout_width="95dp"
         android:layout_height="30dp"
+        android:buttonTint="#56a885"
         android:text="Thriller"
         android:textColor="#EDEDED"
-        android:buttonTint="#56a885"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.658"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.235" />
+        app:layout_constraintTop_toBottomOf="@+id/userName"
+        app:layout_constraintVertical_bias="0.468" />
 
     <Button
         android:id="@+id/changeButton"
@@ -121,7 +121,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/genreFantasy"
-        app:layout_constraintVertical_bias="0.349" />
+        app:layout_constraintVertical_bias="0.402" />
 
     <Button
         android:id="@+id/logoutButton"
@@ -135,7 +135,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/changeButton"
-        app:layout_constraintVertical_bias="0.615" />
+        app:layout_constraintVertical_bias="0.533" />
 
     <TextView
         android:id="@+id/textView7"
@@ -148,6 +148,46 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userName"
-        app:layout_constraintVertical_bias="0.114" />
+        app:layout_constraintVertical_bias="0.263" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Series or movies?"
+        android:textColor="#EDEDED"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userName"
+        app:layout_constraintVertical_bias="0.078" />
+
+    <RadioGroup
+        android:id="@+id/radiogroup"
+        android:layout_width="140dp"
+        android:layout_height="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.61"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userName"
+        app:layout_constraintVertical_bias="0.120000005">
+
+        <RadioButton
+            android:id="@+id/radioButtonMovies"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:buttonTint="#56a885"
+            android:text="Movies"
+            android:textColor="#EDEDED" />
+
+        <RadioButton
+            android:id="@+id/radioButtonSeries"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            android:buttonTint="#56a885"
+            android:text="Series"
+            android:textColor="#EDEDED" />
+    </RadioGroup>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

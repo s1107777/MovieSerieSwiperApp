@@ -4,10 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -24,7 +29,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,11 +53,13 @@ public class MainActivity extends AppCompatActivity {
 
         movieViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity.this.getApplication())
                 .create(MovieViewModel.class);
-
+        getCheckboxValues();
         movieViewModel.getAllMovies().observe(this, new Observer<List<Movie>>() {
             @Override
             public void onChanged(List<Movie> movies) {
                 StringBuilder builder = new StringBuilder();
+
+//                Log.d("isValid", String.valueOf(isValid));
                 for (Movie movie : movies) {
                     //builder.append(" - " + movie.getMoviename() + " " + movie.getMoviegenre());
                     Log.d("TAG", "onCreate: " + movie.getMoviename());
@@ -91,13 +102,47 @@ public class MainActivity extends AppCompatActivity {
         profileButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Bundle bundle = getIntent().getExtras();
-                String token = bundle.getString("token");
-                Log.d("ProfileToken", token);
-                Intent intent = new Intent(MainActivity.this, Profile.class);
-                intent.putExtra("token", token);
-                startActivity(intent);
+                startActivity(new Intent(getApplicationContext(), Profile.class));
             }
         });
+    }
+
+    public void getCheckboxValues(){
+        SharedPreferences sharedPreferences = getSharedPreferences("check",MODE_PRIVATE);
+        boolean action = sharedPreferences.getBoolean("checkAction", false);
+        boolean adventure = sharedPreferences.getBoolean("checkAdventure", false);
+        boolean comedy = sharedPreferences.getBoolean("checkComedy", false);
+        boolean crime = sharedPreferences.getBoolean("checkCrime", false);
+        boolean fanatasy = sharedPreferences.getBoolean("checkFantasy", false);
+        boolean thriller = sharedPreferences.getBoolean("checkThriller", false);
+
+        movieViewModel.getAllMovies().observe(this, new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(List<Movie> movies) {
+                if(action){
+                    for (Movie movie : movies) {
+                        
+                    }
+                    Log.d("action", "ACTION");
+                }
+                if(adventure){
+                    Log.d("adventure", "adventure");
+                }
+                if(comedy){
+                    Log.d("comedy", "comedy");
+                }
+                if(crime){
+                    Log.d("crime", "crime");
+                }
+                if(fanatasy){
+                    Log.d("fanatasy", "fanatasy");
+                }
+                if(thriller){
+                    Log.d("thriller", "thriller");
+                }
+            }
+        });
+
+
     }
 }
