@@ -1,9 +1,12 @@
 package com.iatjrd.movieserieswiperapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,12 +64,14 @@ public class SerieActivity extends AppCompatActivity {
     public String serieSeasons;
     public SavedItemViewModel savedItemViewModel;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_serie);
 
         CardStackView cardStackView = findViewById(R.id.serie_stack_view);
+
 
         movieViewModel = new ViewModelProvider.AndroidViewModelFactory(SerieActivity.this.getApplication())
                 .create(MovieViewModel.class);
@@ -213,4 +218,5 @@ public class SerieActivity extends AppCompatActivity {
         SavedItem savedItem = new SavedItem(serieName, serieGenre, serieDescription, serieSeasons);
         MovieViewModel.insertSaveItem(savedItem);
     }
+
 }
