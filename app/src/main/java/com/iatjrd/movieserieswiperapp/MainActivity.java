@@ -96,6 +96,8 @@ public class MainActivity extends AppCompatActivity {
                     //Log.d("saved list", moviesSwipedRight.toString());
                     //addedMoviesForSwipe.remove(Index);
                     //addItemToList(movieName, movieGenre);
+//                    MyFirebaseMessagingService myFirebaseMessagingService = new MyFirebaseMessagingService();
+//                    myFirebaseMessagingService.onMessageReceived("test");
                 }
                 if (direction == Direction.Top) {
                     Toast.makeText(MainActivity.this, "Direction Top", Toast.LENGTH_SHORT).show();
@@ -296,19 +298,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void createNotifiction(){
-        String CHANNEL_ID = "channel_name";
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("test")
-                .setContentText("jaallalalala")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            CharSequence name = "Channel name";
-            int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
-            builder.createNotificationChannel(mChannel);
-        }
-    }
 }
