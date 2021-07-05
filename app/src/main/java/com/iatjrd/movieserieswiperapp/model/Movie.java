@@ -17,10 +17,17 @@ public class Movie {
     @ColumnInfo(name = "moviegenre")
     private String moviegenre;
 
+    @ColumnInfo(name = "movieurl")
+    private String movieurl;
 
-    public Movie(@NonNull String moviename, String moviegenre) {
+    @ColumnInfo(name = "moviedescription")
+    private String moviedescription;
+
+    public Movie(@NonNull String moviename, String moviegenre, String moviedescription, String movieurl) {
         this.moviename = moviename;
         this.moviegenre = moviegenre;
+        this.movieurl = movieurl;
+        this.moviedescription = moviedescription;
     }
 
     public int getId() {
@@ -45,5 +52,21 @@ public class Movie {
 
     public void setMoviegenre(String moviegenre) {
         this.moviegenre = moviegenre;
+    }
+
+    public String getMovieurl() {
+        return movieurl;
+    }
+
+    public void setMovieurl(String movieurl) {
+        this.movieurl = movieurl;
+    }
+
+    public String getMoviedescription() {
+        return moviedescription;
+    }
+
+    public void setMoviedescription(String moviedescription) {
+        this.moviedescription = moviedescription;
     }
 }

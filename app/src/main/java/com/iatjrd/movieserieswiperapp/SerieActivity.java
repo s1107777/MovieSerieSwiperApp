@@ -1,25 +1,17 @@
 package com.iatjrd.movieserieswiperapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.DiffUtil;
-
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
-import android.widget.Adapter;
-import android.widget.ImageButton;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -27,11 +19,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.iatjrd.movieserieswiperapp.adapter.CardStackAdapter;
-import com.iatjrd.movieserieswiperapp.adapter.CardStackCallback;
-import com.iatjrd.movieserieswiperapp.data.MovieDao;
+
+import com.iatjrd.movieserieswiperapp.adapter.SavedItemStackAdapter;
+import com.iatjrd.movieserieswiperapp.adapter.SerieStackAdapter;
+
+import com.iatjrd.movieserieswiperapp.data.SerieDao;
+
 import com.iatjrd.movieserieswiperapp.model.Movie;
 import com.iatjrd.movieserieswiperapp.model.MovieViewModel;
+import com.iatjrd.movieserieswiperapp.model.SavedItem;
+import com.iatjrd.movieserieswiperapp.model.SavedItemViewModel;
+import com.iatjrd.movieserieswiperapp.model.Serie;
 import com.iatjrd.movieserieswiperapp.model.SerieViewModel;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
@@ -44,46 +42,41 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class SerieActivity extends AppCompatActivity {
 
-    ImageButton profileButton;
+    public SerieViewModel serieViewModel;
     public MovieViewModel movieViewModel;
     private CardStackLayoutManager manager;
-    private CardStackAdapter adapter;
-    public MovieDao movieDao;
-    public List<Movie> movies = new ArrayList<>();
-    public String Movieurl = "https://movieserieswiperdb-qioab.ondigitalocean.app/api/auth/movies";
+    private SerieStackAdapter adapter;
+    private SavedItemStackAdapter adapterSavedItem;
+    public List<Serie> series = new ArrayList<>();
+    public List<SavedItem> savedItems = new ArrayList<>();
+    public String serieImage = "";
+    public String serieName;
+    public String serieGenre;
+    public String serieDescription;
+    public String serieSeasons;
+    public SavedItemViewModel savedItemViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_serie);
 
-        CardStackView cardStackView = findViewById(R.id.card_stack_view);
+        CardStackView cardStackView = findViewById(R.id.serie_stack_view);
 
-        profileButton = findViewById(R.id.profileButton);
-
-        movieViewModel = new ViewModelProvider.AndroidViewModelFactory(MainActivity.this.getApplication())
+        movieViewModel = new ViewModelProvider.AndroidViewModelFactory(SerieActivity.this.getApplication())
                 .create(MovieViewModel.class);
-        getCheckboxValues();
-        movieViewModel.getAllMovies().observe(this, new Observer<List<Movie>>() {
-            @Override
-            public void onChanged(List<Movie> movies) {
-                adapter.setMovies(movies);
 
-            }
-        });
-
-        profileButton.setOnClickListener(new View.OnClickListener(){
+        movieViewModel.getAllSeries().observe(this, new Observer<List<Serie>>() {
             @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Profile.class));
+            public void onChanged(List<Serie> series) {
+                adapter.setSeries(series);
+                //textView.setText(builder.toString());
+
             }
         });
 
@@ -91,28 +84,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCardSwiped(Direction direction) {
                 if (direction == Direction.Right) {
-                    Toast.makeText(MainActivity.this, "Direction Right", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SerieActivity.this, "Direction Right", Toast.LENGTH_SHORT).show();
                     //moviesSwipedRight.add(addedMoviesForSwipe.toString());
                     //Log.d("saved list", moviesSwipedRight.toString());
                     //addedMoviesForSwipe.remove(Index);
                     //addItemToList(movieName, movieGenre);
+                    savedItems(serieName, serieGenre, serieDescription, serieSeasons);
+
                 }
                 if (direction == Direction.Top) {
-                    Toast.makeText(MainActivity.this, "Direction Top", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SerieActivity.this, "Direction Top", Toast.LENGTH_SHORT).show();
                 }
                 if (direction == Direction.Left) {
-                    Toast.makeText(MainActivity.this, "Direction Left", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SerieActivity.this, "Direction Left", Toast.LENGTH_SHORT).show();
                     //addedMoviesForSwipe.remove(Index);
                     //addedMoviesForSwipe.remove(Index);
                     //.d("deleted movies", addedMoviesForSwipe.toString());
                 }
                 if (direction == Direction.Bottom) {
-                    Toast.makeText(MainActivity.this, "Direction Bottom", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SerieActivity.this, "Direction Bottom", Toast.LENGTH_SHORT).show();
                 }
 
                 // Paginating
                 if (manager.getTopPosition() == adapter.getItemCount() - 5) {
-                    paginate();
                 }
             }
 
@@ -134,25 +128,33 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCardAppeared(View view, int position) {
-                TextView tv = view.findViewById(R.id.movie_name);
-                TextView genreMovie = view.findViewById(R.id.movie_genre);
+                TextView tv = view.findViewById(R.id.serie_name);
+                TextView genre = view.findViewById(R.id.serie_genre);
+                TextView description = view.findViewById(R.id.serie_description);
+                TextView seasons = view.findViewById(R.id.serie_seasons);
                 //ImageView movieImageUrl = view.findViewById(R.id.movie_image);
                 //View movieNameView = view.findViewById(R.id.movie_name);
                 //movieName = String.valueOf(tv.getText());
                 //movieGenre = String.valueOf(genreMovie.getText());
                 //movieImage = String.valueOf(movieImageUrl.get);
 
+                serieName = String.valueOf(tv.getText());
+                serieGenre = String.valueOf(genre.getText());
+                serieDescription = String.valueOf(description.getText());
+                serieSeasons = String.valueOf(seasons.getText());
+
+                Log.d("SeriesAdded", serieName + serieGenre +  serieDescription + serieSeasons);
                 Log.d("MainActivity", "onCardAppeared: " + position + ", movie name: " + tv.getText());
             }
 
             @Override
             public void onCardDisappeared(View view, int position) {
-                TextView tv = view.findViewById(R.id.movie_name);
+                TextView tv = view.findViewById(R.id.serie_name);
                 Log.d("MainActivity", "onCardAppeared: " + position + ", movie name: " + tv.getText());
             }
         });
 
-        adapter = new CardStackAdapter(addList());
+        adapter = new SerieStackAdapter(addList());
         cardStackView.setAdapter(adapter);
         manager.setStackFrom(StackFrom.None);
         manager.setVisibleCount(3);
@@ -166,20 +168,14 @@ public class MainActivity extends AppCompatActivity {
         manager.setOverlayInterpolator(new LinearInterpolator());
         cardStackView.setLayoutManager(manager);
         cardStackView.setItemAnimator(new DefaultItemAnimator());
+
+
     }
 
-    private void paginate() {
-        List<Movie> old = adapter.getMovies();
-        List<Movie> baru = new ArrayList<>(addList());
-        CardStackCallback callback = new CardStackCallback(old, baru);
-        DiffUtil.DiffResult hasil = DiffUtil.calculateDiff(callback);
-        adapter.setMovies(baru);
-        hasil.dispatchUpdatesTo(adapter);
-    }
 
-    private List<Movie> addList() {
-        String Movieurl = "https://movieserieswiperdb-qioab.ondigitalocean.app/api/auth/movies";
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, Movieurl,
+    private List<Serie> addList() {
+        String Serieurl = "https://movieserieswiperdb-qioab.ondigitalocean.app/api/auth/series";
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, Serieurl,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -188,12 +184,13 @@ public class MainActivity extends AppCompatActivity {
 
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject jsonObject = array.getJSONObject(i);
-                                Movie movie = new Movie(jsonObject.getString("movieName"),
+                                Serie serie = new Serie(jsonObject.getString("serieName"),
                                         jsonObject.getString("genre"),
                                         jsonObject.getString("description"),
-                                        jsonObject.getString("movieImageUrl"));
-                                MovieViewModel.insert(movie);
-                                Log.d("MovieAdded", "the movie method added has been called");
+                                        jsonObject.getString("seasons"),
+                                        jsonObject.getString("serieImageUrl"));
+                                MovieViewModel.insertSerie(serie);
+                                Log.d("SerieAdded", "the movie method added has been called");
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -209,48 +206,11 @@ public class MainActivity extends AppCompatActivity {
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-        return movies;
-
-
+        return series;
     }
 
-    public void getCheckboxValues(){
-        SharedPreferences sharedPreferences = getSharedPreferences("check",MODE_PRIVATE);
-        boolean action = sharedPreferences.getBoolean("checkAction", false);
-        boolean adventure = sharedPreferences.getBoolean("checkAdventure", false);
-        boolean comedy = sharedPreferences.getBoolean("checkComedy", false);
-        boolean crime = sharedPreferences.getBoolean("checkCrime", false);
-        boolean fanatasy = sharedPreferences.getBoolean("checkFantasy", false);
-        boolean thriller = sharedPreferences.getBoolean("checkThriller", false);
-
-        movieViewModel.getAllMovies().observe(this, new Observer<List<Movie>>() {
-            @Override
-            public void onChanged(List<Movie> movies) {
-                if(action){
-                    for (Movie movie : movies) {
-
-                    }
-                    Log.d("action", "ACTION");
-                }
-                if(adventure){
-                    Log.d("adventure", "adventure");
-                }
-                if(comedy){
-                    Log.d("comedy", "comedy");
-                }
-                if(crime){
-                    Log.d("crime", "crime");
-                }
-                if(fanatasy){
-                    Log.d("fanatasy", "fanatasy");
-                }
-                if(thriller){
-                    Log.d("thriller", "thriller");
-                }
-            }
-        });
-
-
-
+    public void savedItems(String serieName, String serieGenre, String serieDescription, String serieSeasons){
+        SavedItem savedItem = new SavedItem(serieName, serieGenre, serieDescription, serieSeasons);
+        MovieViewModel.insertSaveItem(savedItem);
     }
 }

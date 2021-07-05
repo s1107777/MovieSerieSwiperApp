@@ -45,4 +45,8 @@ public class MovieRepository {
             movieDao.insert(movie);
         });
     }
+
+    public void delete(Movie movie){
+        MovieRoomDatabase.databaseWriteExecutor.execute(() -> movieDao.deleteAll());
+    }
 }

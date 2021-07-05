@@ -3,6 +3,7 @@ package com.iatjrd.movieserieswiperapp.data;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -16,7 +17,7 @@ public interface MovieDao {
 
     //CRUD OPERATIONS GO HERE
 
-    @Query("SELECT * FROM movie_table  ORDER BY movieName ASC")
+    @Query("SELECT * FROM movie_table")
     LiveData<List<Movie>> getAllMovies();
 
     @Query("SELECT * FROM movie_table WHERE moviegenre = 'Action'")
@@ -42,5 +43,8 @@ public interface MovieDao {
 
     @Query("DELETE FROM movie_table")
     void deleteAll();
+
+    @Delete
+    void delete(Movie movie);
 }
 
