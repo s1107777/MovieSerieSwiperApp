@@ -21,18 +21,15 @@ public class SavedItem {
     @ColumnInfo(name = "description")
     private String description;
 
-    @ColumnInfo(name ="seasons")
-    private String seasons;
-
    // @ColumnInfo(name = "serieurl")
    // private String serieurl;
 
 
-    public SavedItem(String name, String genre, String description, String seasons) {
+    public SavedItem(String name, String genre, String description) {
         this.name = name;
         this.genre = genre;
         this.description = description;
-        this.seasons = seasons;
+
     }
 
     public int getId() {
@@ -67,11 +64,4 @@ public class SavedItem {
         this.description = description;
     }
 
-    public String getSeasons() {
-        return seasons;
-    }
-
-    public void setSeasons(String seasons) {
-        this.seasons = seasons;
-    }
 }

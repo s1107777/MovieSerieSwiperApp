@@ -24,96 +24,6 @@
         app:layout_constraintVertical_bias="0.06999999" />
 
 
-    <CheckBox
-        android:id="@+id/genreAction"
-        android:layout_width="95dp"
-        android:layout_height="30dp"
-        android:buttonTint="#56a885"
-        android:text="Action"
-        android:textColor="#EDEDED"
-        android:checked="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.357"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userName"
-        app:layout_constraintVertical_bias="0.322" />
-
-    <CheckBox
-        android:id="@+id/genreComedy"
-        android:layout_width="95dp"
-        android:layout_height="30dp"
-        android:buttonTint="#56a885"
-        android:text="Comedy"
-        android:textColor="#EDEDED"
-        android:checked="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.357"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userName"
-        app:layout_constraintVertical_bias="0.396" />
-
-    <CheckBox
-        android:id="@+id/genreFantasy"
-        android:layout_width="95dp"
-        android:layout_height="30dp"
-        android:buttonTint="#56a885"
-        android:text="Fantasy"
-        android:textColor="#EDEDED"
-        android:checked="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.357"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userName"
-        app:layout_constraintVertical_bias="0.468" />
-
-    <CheckBox
-        android:id="@+id/genreAdventure"
-        android:layout_width="100dp"
-        android:layout_height="30dp"
-        android:buttonTint="#56a885"
-        android:text="Adventure"
-        android:textColor="#EDEDED"
-        android:checked="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.668"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userName"
-        app:layout_constraintVertical_bias="0.322" />
-
-    <CheckBox
-        android:id="@+id/genreCrime"
-        android:layout_width="95dp"
-        android:layout_height="30dp"
-        android:buttonTint="#56a885"
-        android:text="Crime"
-        android:textColor="#EDEDED"
-        android:checked="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.658"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userName"
-        app:layout_constraintVertical_bias="0.396" />
-
-    <CheckBox
-        android:id="@+id/genreThriller"
-        android:layout_width="95dp"
-        android:layout_height="30dp"
-        android:buttonTint="#56a885"
-        android:text="Thriller"
-        android:textColor="#EDEDED"
-        android:checked="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.658"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userName"
-        app:layout_constraintVertical_bias="0.468" />
-
     <Button
         android:id="@+id/changeButton"
         android:layout_width="305dp"
@@ -125,9 +35,10 @@
         app:cornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/genreFantasy"
-        app:layout_constraintVertical_bias="0.402" />
+        app:layout_constraintVertical_bias="0.467" />
 
     <Button
         android:id="@+id/logoutButton"
@@ -139,9 +50,10 @@
         app:cornerRadius="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/changeButton"
-        app:layout_constraintVertical_bias="0.533" />
+        app:layout_constraintVertical_bias="0.543" />
 
     <TextView
         android:id="@+id/textView7"
@@ -152,9 +64,106 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userName"
-        app:layout_constraintVertical_bias="0.263" />
+        app:layout_constraintVertical_bias="0.307" />
+
+    <CheckBox
+        android:id="@+id/genreCrime"
+        android:layout_width="95dp"
+        android:layout_height="30dp"
+        android:buttonTint="#56a885"
+        android:checked="true"
+        android:text="Crime"
+        android:textColor="#EDEDED"
+        android:checked="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.652"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userName"
+        app:layout_constraintVertical_bias="0.44" />
+
+    <CheckBox
+        android:id="@+id/genreAction"
+        android:layout_width="95dp"
+        android:layout_height="30dp"
+        android:buttonTint="#56a885"
+        android:checked="true"
+        android:text="Action"
+        android:textColor="#EDEDED"
+        android:checked="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.35"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userName"
+        app:layout_constraintVertical_bias="0.366" />
+
+    <CheckBox
+        android:id="@+id/genreFantasy"
+        android:layout_width="95dp"
+        android:layout_height="30dp"
+        android:buttonTint="#56a885"
+        android:checked="true"
+        android:text="Fantasy"
+        android:textColor="#EDEDED"
+        android:checked="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.35"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userName"
+        app:layout_constraintVertical_bias="0.512" />
+
+    <CheckBox
+        android:id="@+id/genreAdventure"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:buttonTint="#56a885"
+        android:checked="true"
+        android:text="Adventure"
+        android:textColor="#EDEDED"
+        android:checked="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.662"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userName"
+        app:layout_constraintVertical_bias="0.366" />
+
+    <CheckBox
+        android:id="@+id/genreComedy"
+        android:layout_width="95dp"
+        android:layout_height="30dp"
+        android:buttonTint="#56a885"
+        android:checked="true"
+        android:text="Comedy"
+        android:textColor="#EDEDED"
+        android:checked="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.35"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userName"
+        app:layout_constraintVertical_bias="0.44" />
+
+    <CheckBox
+        android:id="@+id/genreThriller"
+        android:layout_width="95dp"
+        android:layout_height="30dp"
+        android:buttonTint="#56a885"
+        android:checked="true"
+        android:text="Thriller"
+        android:textColor="#EDEDED"
+        android:checked="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.652"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userName"
+        app:layout_constraintVertical_bias="0.512" />
 
     <TextView
         android:id="@+id/textView2"

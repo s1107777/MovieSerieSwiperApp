@@ -54,6 +54,7 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+
         logoutButton = findViewById(R.id.logoutButton);
         changeButton = findViewById(R.id.changeButton);
         username = findViewById(R.id.userName);
@@ -64,24 +65,73 @@ public class Profile extends AppCompatActivity {
         genreCrime = findViewById(R.id.genreCrime);
         genreFantasy = findViewById(R.id.genreFantasy);
         genreThriller = findViewById(R.id.genreThriller);
-        radioButtonMovies = findViewById(R.id.radioButtonMovies);
-        radioButtonSeries = findViewById(R.id.radioButtonSeries);
-        radioGroup = findViewById(R.id.radiogroup);
 
+        radioGroup = findViewById(R.id.radiogroup);
+        radioButtonSeries = findViewById(R.id.radioButtonSeries);
+        radioButtonMovies = findViewById(R.id.radioButtonMovies);
 
         movieViewModel = new ViewModelProvider.AndroidViewModelFactory(Profile.this.getApplication())
                 .create(MovieViewModel.class);
 
         getUsername(username);
-//        movieOrSerie();
+//        checkSerieOrMovie();
 
+//        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+//                SharedPreferences preferences = getSharedPreferences("radio", MODE_PRIVATE);
+//                SharedPreferences.Editor editorRadio = preferences.edit();
+//                if(i == R.id.radioButtonMovies){
+//                    Log.d("radioButtonLog", String.valueOf(i));
+//
+//                    editorRadio.putBoolean("radio", true).apply();
+//                }
+//                else{
+//                    Log.d("radioButtonLog", String.valueOf(i));
+//                    editorRadio.putBoolean("radio", false).apply();
+//                }
+//            }
+//        });
         changeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                SharedPreferences sharedPreferences = getSharedPreferences("radio",MODE_PRIVATE);
+                boolean radioMovie = sharedPreferences.getBoolean("radioMovie", false);
+                boolean radioSerie = sharedPreferences.getBoolean("radioSerie", false);
+                if(radioMovie){
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                }
+                if(radioSerie){
+                    startActivity(new Intent(getApplicationContext(), SerieActivity.class));
+                }
             }
         });
-
+        radioButtonMovies.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                SharedPreferences preferences = getSharedPreferences("radio", MODE_PRIVATE);
+                SharedPreferences.Editor editorRadio = preferences.edit();
+                if(b){
+                    editorRadio.putBoolean("radioMovie", true).apply();
+                }
+                else{
+                    editorRadio.putBoolean("radioMovie", false).apply();
+                }
+            }
+        });
+        radioButtonSeries.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                SharedPreferences preferences = getSharedPreferences("radio", MODE_PRIVATE);
+                SharedPreferences.Editor editorRadio = preferences.edit();
+                if(b){
+                    editorRadio.putBoolean("radioSerie", true).apply();
+                }
+                else{
+                    editorRadio.putBoolean("radioSerie", false).apply();
+                }
+            }
+        });
         logoutButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -90,6 +140,12 @@ public class Profile extends AppCompatActivity {
             }
         });
     }
+
+//    public void checkSerieOrMovie(){
+//
+//
+//
+//    }
 
     public void getUsername(TextView username){
         movieViewModel.getAllUsers().observe(Profile.this, new Observer<List<User>>() {
@@ -107,6 +163,9 @@ public class Profile extends AppCompatActivity {
                 }
             }
         });
+
+
+
     }
 
     public void logout(){
@@ -151,6 +210,7 @@ public class Profile extends AppCompatActivity {
         save(genreCrime.isChecked());
         save(genreFantasy.isChecked());
         save(genreThriller.isChecked());
+
         save(radioButtonSeries.isChecked());
         save(radioButtonMovies.isChecked());
     }
@@ -163,6 +223,7 @@ public class Profile extends AppCompatActivity {
         genreCrime.setChecked(loadCrime());
         genreFantasy.setChecked(loadFantasy());
         genreThriller.setChecked(loadThriller());
+
         radioButtonSeries.setChecked(loadSerie());
         radioButtonMovies.setChecked(loadMovie());
     }
@@ -176,13 +237,8 @@ public class Profile extends AppCompatActivity {
         editor.putBoolean("checkCrime", genreCrime.isChecked()).apply();
         editor.putBoolean("checkFantasy", genreFantasy.isChecked()).apply();
         editor.putBoolean("checkThriller", genreThriller.isChecked()).apply();
-
-
-        SharedPreferences preferences = getSharedPreferences("radio", MODE_PRIVATE);
-        SharedPreferences.Editor editorRadio = preferences.edit();
-        editorRadio.putBoolean("serie", radioButtonSeries.isChecked()).apply();
-        editorRadio.putBoolean("film", radioButtonMovies.isChecked()).apply();
         editor.commit();
+
     }
     private boolean loadAction(){
         SharedPreferences sharedPreferences = getSharedPreferences("check",MODE_PRIVATE);
@@ -210,10 +266,10 @@ public class Profile extends AppCompatActivity {
     }
     private boolean loadSerie(){
         SharedPreferences sharedPreferences = getSharedPreferences("radio",MODE_PRIVATE);
-        return sharedPreferences.getBoolean("serie", false);
+        return sharedPreferences.getBoolean("radioSerie", false);
     }
     private boolean loadMovie(){
         SharedPreferences sharedPreferences = getSharedPreferences("radio",MODE_PRIVATE);
-        return sharedPreferences.getBoolean("movie", false);
+        return sharedPreferences.getBoolean("radioMovie", false);
     }
 }

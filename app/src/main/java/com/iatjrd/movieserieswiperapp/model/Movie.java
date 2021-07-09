@@ -3,6 +3,8 @@ package com.iatjrd.movieserieswiperapp.model;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Index;
+import androidx.room.OnConflictStrategy;
 import androidx.room.PrimaryKey;
 
 import java.util.List;
@@ -14,6 +16,7 @@ public class Movie {
     private int id;
 
     @ColumnInfo(name = "moviename")
+
     private String moviename;
 
     @ColumnInfo(name = "moviegenre")

@@ -46,7 +46,7 @@ public class MovieRepository {
         });
     }
 
-    public void delete(Movie movie){
-        MovieRoomDatabase.databaseWriteExecutor.execute(() -> movieDao.deleteAll());
+    public void deleteAll(Movie movie){
+        MovieRoomDatabase.databaseWriteExecutor.execute(() -> movieDao.delete(movie));
     }
 }

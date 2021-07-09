@@ -1,9 +1,12 @@
 package com.iatjrd.movieserieswiperapp;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,9 +31,7 @@ import com.iatjrd.movieserieswiperapp.data.SerieDao;
 import com.iatjrd.movieserieswiperapp.model.Movie;
 import com.iatjrd.movieserieswiperapp.model.MovieViewModel;
 import com.iatjrd.movieserieswiperapp.model.SavedItem;
-import com.iatjrd.movieserieswiperapp.model.SavedItemViewModel;
 import com.iatjrd.movieserieswiperapp.model.Serie;
-import com.iatjrd.movieserieswiperapp.model.SerieViewModel;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.CardStackView;
@@ -47,7 +48,7 @@ import java.util.List;
 
 public class SerieActivity extends AppCompatActivity {
 
-    public SerieViewModel serieViewModel;
+    ImageButton profileButton, savedItemButton;
     public MovieViewModel movieViewModel;
     private CardStackLayoutManager manager;
     private SerieStackAdapter adapter;
@@ -59,7 +60,6 @@ public class SerieActivity extends AppCompatActivity {
     public String serieGenre;
     public String serieDescription;
     public String serieSeasons;
-    public SavedItemViewModel savedItemViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,28 +68,39 @@ public class SerieActivity extends AppCompatActivity {
 
         CardStackView cardStackView = findViewById(R.id.serie_stack_view);
 
+        profileButton = findViewById(R.id.profileButton);
+        savedItemButton = findViewById(R.id.saveditemsButton);
         movieViewModel = new ViewModelProvider.AndroidViewModelFactory(SerieActivity.this.getApplication())
                 .create(MovieViewModel.class);
 
-        movieViewModel.getAllSeries().observe(this, new Observer<List<Serie>>() {
+        getCheckboxValues();
+        profileButton.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onChanged(List<Serie> series) {
-                adapter.setSeries(series);
-                //textView.setText(builder.toString());
-
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Profile.class));
             }
         });
+
+        savedItemButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), SavedItemActivity.class));
+            }
+        });
+//        movieViewModel.getAllSeries().observe(this, new Observer<List<Serie>>() {
+//            @Override
+//            public void onChanged(List<Serie> series) {
+//                adapter.setSeries(series);
+//            }
+//        });
 
         manager = new CardStackLayoutManager(this, new CardStackListener() {
             @Override
             public void onCardSwiped(Direction direction) {
                 if (direction == Direction.Right) {
                     Toast.makeText(SerieActivity.this, "Direction Right", Toast.LENGTH_SHORT).show();
-                    //moviesSwipedRight.add(addedMoviesForSwipe.toString());
-                    //Log.d("saved list", moviesSwipedRight.toString());
-                    //addedMoviesForSwipe.remove(Index);
-                    //addItemToList(movieName, movieGenre);
-                    savedItems(serieName, serieGenre, serieDescription, serieSeasons);
+
+//                    savedItems(serieName, serieGenre, serieDescription, serieSeasons);
 
                 }
                 if (direction == Direction.Top) {
@@ -209,8 +220,79 @@ public class SerieActivity extends AppCompatActivity {
         return series;
     }
 
-    public void savedItems(String serieName, String serieGenre, String serieDescription, String serieSeasons){
-        SavedItem savedItem = new SavedItem(serieName, serieGenre, serieDescription, serieSeasons);
-        MovieViewModel.insertSaveItem(savedItem);
+//    public void savedItems(String serieName, String serieGenre, String serieDescription, String serieSeasons){
+//        SavedItem savedItem = new SavedItem(serieName, serieGenre, serieDescription, serieSeasons);
+//        MovieViewModel.insertSaveItem(savedItem);
+//    }
+
+    public void getCheckboxValues(){
+        SharedPreferences sharedPreferences = getSharedPreferences("check",MODE_PRIVATE);
+        boolean action = sharedPreferences.getBoolean("checkAction", false);
+        boolean adventure = sharedPreferences.getBoolean("checkAdventure", false);
+        boolean comedy = sharedPreferences.getBoolean("checkComedy", false);
+        boolean crime = sharedPreferences.getBoolean("checkCrime", false);
+        boolean fanatasy = sharedPreferences.getBoolean("checkFantasy", false);
+        boolean thriller = sharedPreferences.getBoolean("checkThriller", false);
+
+        if(action){
+            movieViewModel.getGenreActionSerie().observe(this, new Observer<List<Serie>>() {
+                @Override
+                public void onChanged(List<Serie> series) {
+                    for (Serie serie : series) {
+                        adapter.setSeries(series);
+                    }
+                }
+            });
+        }
+        if(adventure){
+            movieViewModel.getGenreAdventureSerie().observe(this, new Observer<List<Serie>>() {
+                @Override
+                public void onChanged(List<Serie> series) {
+                    for (Serie serie : series) {
+                        adapter.setSeries(series);
+                    }
+                }
+            });
+        }
+        if(comedy){
+            movieViewModel.getGenreComedySerie().observe(this, new Observer<List<Serie>>() {
+                @Override
+                public void onChanged(List<Serie> series) {
+                    for (Serie serie : series) {
+                        adapter.setSeries(series);
+                    }
+                }
+            });
+        }
+        if(crime){
+            movieViewModel.getGenreCrimeSerie().observe(this, new Observer<List<Serie>>() {
+                @Override
+                public void onChanged(List<Serie> series) {
+                    for (Serie serie : series) {
+                        adapter.setSeries(series);
+                    }
+                }
+            });
+        }
+        if(fanatasy){
+            movieViewModel.getGenreFantasySerie().observe(this, new Observer<List<Serie>>() {
+                @Override
+                public void onChanged(List<Serie> series) {
+                    for (Serie serie : series) {
+                        adapter.setSeries(series);
+                    }
+                }
+            });
+        }
+        if(thriller){
+            movieViewModel.getGenreThrillerSerie().observe(this, new Observer<List<Serie>>() {
+                @Override
+                public void onChanged(List<Serie> series) {
+                    for (Serie serie : series) {
+                        adapter.setSeries(series);
+                    }
+                }
+            });
+        }
     }
 }

@@ -1,7 +1,10 @@
 package com.iatjrd.movieserieswiperapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -19,9 +22,6 @@ import com.android.volley.toolbox.Volley;
 import com.iatjrd.movieserieswiperapp.adapter.SavedItemStackAdapter;
 import com.iatjrd.movieserieswiperapp.model.MovieViewModel;
 import com.iatjrd.movieserieswiperapp.model.SavedItem;
-import com.iatjrd.movieserieswiperapp.model.SavedItemViewModel;
-import com.iatjrd.movieserieswiperapp.model.Serie;
-import com.iatjrd.movieserieswiperapp.model.SerieViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,6 +36,7 @@ public class SavedItemActivity extends AppCompatActivity {
     public DividerItemDecoration dividerItemDecoration;
     public List<SavedItem> savedItem;
     public SavedItemStackAdapter adapter;
+    ImageButton profileButton, homeButton;
 
     public MovieViewModel movieViewModel;
 
@@ -44,19 +45,40 @@ public class SavedItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saveditem);
 
+        Log.d("enteredSaved", "entered save activity");
+
         sList = findViewById(R.id.savedmovie_list);
 
         savedItem = new ArrayList<>();
         adapter = new SavedItemStackAdapter(savedItem);
 
+
         linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         dividerItemDecoration = new DividerItemDecoration(sList.getContext(), linearLayoutManager.getOrientation());
 
         sList.setHasFixedSize(true);
         sList.setLayoutManager(linearLayoutManager);
         sList.addItemDecoration(dividerItemDecoration);
         sList.setAdapter(adapter);
+
+        profileButton = findViewById(R.id.profileButton);
+        homeButton = findViewById(R.id.homeButton);
+
+        profileButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Profile.class));
+            }
+        });
+
+        homeButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            }
+        });
+
 
         movieViewModel = new ViewModelProvider.AndroidViewModelFactory(SavedItemActivity.this.getApplication())
                 .create(MovieViewModel.class);
@@ -65,12 +87,14 @@ public class SavedItemActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<SavedItem> savedItems) {
                 adapter.setSavedItemsList(savedItems);
+                adapter.notifyDataSetChanged();
                 //textView.setText(builder.toString());
 
             }
         });
 
-       /* String url = "https://movieserieswiperdb-qioab.ondigitalocean.app/api/auth/saved";
+
+       /*String url = "https://movieserieswiperdb-qioab.ondigitalocean.app/api/auth/saved";
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
@@ -80,8 +104,8 @@ public class SavedItemActivity extends AppCompatActivity {
 
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject jsonObject = array.getJSONObject(i);
-                        SavedItem savedItem = new SavedItem(jsonObject.getString("name"), jsonObject.getString("genre"), "test", "test");
-                        SavedItemViewModel.insert(savedItem);
+                        SavedItem savedItem = new SavedItem();
+                        movieViewModel.insertSaveItem(savedItem);
                         adapter.notifyDataSetChanged();
                     }
                 }catch (JSONException e) {
@@ -96,9 +120,10 @@ public class SavedItemActivity extends AppCompatActivity {
                     }
                 });
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);*/
+        requestQueue.add(stringRequest);
+
+    }*/
 
     }
-
-    }
+}
 

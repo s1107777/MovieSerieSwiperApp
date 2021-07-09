@@ -5,7 +5,6 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.iatjrd.movieserieswiperapp.model.SavedItem;
-import com.iatjrd.movieserieswiperapp.model.Serie;
 import com.iatjrd.movieserieswiperapp.util.MovieRoomDatabase;
 
 import java.util.List;

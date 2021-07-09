@@ -10,26 +10,26 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.iatjrd.movieserieswiperapp.data.MovieDao;
+import com.iatjrd.movieserieswiperapp.data.SerieDao;
 import com.iatjrd.movieserieswiperapp.data.UserDao;
 import com.iatjrd.movieserieswiperapp.data.SavedItemDao;
-import com.iatjrd.movieserieswiperapp.data.SerieDao;
 import com.iatjrd.movieserieswiperapp.model.Movie;
+import com.iatjrd.movieserieswiperapp.model.Serie;
 import com.iatjrd.movieserieswiperapp.model.User;
 import com.iatjrd.movieserieswiperapp.model.SavedItem;
-import com.iatjrd.movieserieswiperapp.model.Serie;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-@Database(entities = {Movie.class, User.class, Serie.class, SavedItem.class}, version = 75, exportSchema = false)
+@Database(entities = {Movie.class, User.class, SavedItem.class, Serie.class}, version = 100, exportSchema = false)
 public abstract class MovieRoomDatabase extends RoomDatabase {
 
     //Importing Dao
     public abstract MovieDao movieDao();
     public abstract UserDao userDao();
-    public abstract SerieDao serieDao();
     public abstract SavedItemDao savedItemDao();
+    public abstract SerieDao serieDao();
 
     private static final int NUMBER_OF_THREADS = 4;
 
