@@ -55,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
     public MovieDao movieDao;
     public List<Movie> movies = new ArrayList<>();
     public List<SavedItem> savedItem = new ArrayList<>();
-    public String Movieurl = "https://movieserieswiperdb-qioab.ondigitalocean.app/api/auth/movies";
     public String movieName;
     public String movieGenre;
     public String movieDescription;
