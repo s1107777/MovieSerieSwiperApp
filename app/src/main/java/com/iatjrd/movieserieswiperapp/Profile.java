@@ -136,7 +136,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 logout();
-                startActivity(new Intent(getApplicationContext(), Login.class));
+
             }
         });
     }
@@ -170,16 +170,24 @@ public class Profile extends AppCompatActivity {
 
     public void logout(){
         String url = "https://movieserieswiperdb-qioab.ondigitalocean.app/api/auth/logout";
-        Bundle bundle = getIntent().getExtras();
-        String token = bundle.getString("token");
-        Log.d("ProfileToken", token);
+        ArrayList<String> token = new ArrayList<>();
+
+        movieViewModel.getAllUsers().observe(Profile.this, new Observer<List<User>>() {
+            @Override
+            public void onChanged(List<User> users) {
+                for(User user : users){
+                    token.add(user.getToken());
+                    Log.d("tokenLogout2", String.valueOf(token));
+                }
+            }
+        });
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.d("checkResponse", response);
                         Toast.makeText(Profile.this, "Successvolvoly logged out", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), Login.class));
                     }
                 },
                 new Response.ErrorListener() {
@@ -193,7 +201,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders()  {
                 Map<String, String> header = new HashMap<>();
-                header.put("Authorization", "Bearer " + token);
+                header.put("Authorization", "Bearer " + token.get(token.size() - 1));
                 Log.d("checkHeader", header.toString());
                 return header;
             }
@@ -201,6 +209,41 @@ public class Profile extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+
+//    public void logout(){
+//        String url = "https://movieserieswiperdb-qioab.ondigitalocean.app/api/auth/logout";
+//        Bundle bundle = getIntent().getExtras();
+//        String token = bundle.getString("token");
+//        Log.d("ProfileToken", token);
+//
+//        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String response) {
+//                        Log.d("checkResponse", response);
+//                        Toast.makeText(Profile.this, "Successvolvoly logged out", Toast.LENGTH_SHORT).show();
+//                        startActivity(new Intent(getApplicationContext(), Login.class));
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        Log.d("logoutError", error.toString());
+//                        Toast.makeText(Profile.this, "Error! " + error.toString(), Toast.LENGTH_SHORT).show();
+//                    }
+//                })
+//        {
+//            @Override
+//            public Map<String, String> getHeaders()  {
+//                Map<String, String> header = new HashMap<>();
+//                header.put("Authorization", "Bearer " + token);
+//                Log.d("checkHeader", header.toString());
+//                return header;
+//            }
+//        };
+//        RequestQueue requestQueue = Volley.newRequestQueue(this);
+//        requestQueue.add(stringRequest);
+//    }
     @Override
     public void onPause(){
         super.onPause();
